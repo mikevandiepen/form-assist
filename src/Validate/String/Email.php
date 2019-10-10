@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\StringTypes;
+namespace mikevandiepen\utility\Validate;
 
 use mikevandiepen\utility\Validate\SanitizationInterface;
 
-class Url implements SanitizationInterface
+class Email implements SanitizationInterface
 {
     /**
      * The name of the current attribute
@@ -38,6 +38,6 @@ class Url implements SanitizationInterface
      */
     public function validate(array $parameters = array()) : string
     {
-
+        // TODO: Implement validate() method.
     }
 }

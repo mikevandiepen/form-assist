@@ -2,9 +2,9 @@
 
 namespace mikevandiepen\utility\Validate\Numeric;
 
-use mikevandiepen\utility\Validate\SanitizationInterface;
+use mikevandiepen\utility\Validate\ValidationInterface;
 
-class Max implements SanitizationInterface
+class Max implements ValidationInterface
 {
     /**
      * Validation constructor.

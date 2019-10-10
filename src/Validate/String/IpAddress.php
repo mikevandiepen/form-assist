@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\StringTypes;
+namespace mikevandiepen\utility\Validate;
 
 use mikevandiepen\utility\Validate\SanitizationInterface;
 
-class MacAddress implements SanitizationInterface
+class IpAddress implements SanitizationInterface
 {
     /**
      * The name of the current attribute

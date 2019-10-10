@@ -1,6 +1,6 @@
 <?php
 
-namespace mikevandiepen\utility\Request;
+namespace mikevandiepen\utility\Sanitize;
 
 interface SanitizationInterface
 {

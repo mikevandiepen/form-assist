@@ -2,9 +2,9 @@
 
 namespace mikevandiepen\utility\Validate\Numeric;
 
-use mikevandiepen\utility\Validate\SanitizationInterface;
+use mikevandiepen\utility\Validate\ValidationInterface;
 
-class Min implements SanitizationInterface
+class Min implements ValidationInterface
 {
     /**
      * Validation constructor.

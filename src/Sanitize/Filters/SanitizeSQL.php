@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Request\Filters;
+namespace mikevandiepen\utility\Sanitize\Filters;
 
-use mikevandiepen\utility\Request\SanitizationInterface;
+use mikevandiepen\utility\Sanitize\SanitizationInterface;
 
-class StripTags implements SanitizationInterface
+class SanitizeSQL implements SanitizationInterface
 {
     /**
      * The input for sanitization

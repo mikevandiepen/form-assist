@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Request\Filters;
+namespace mikevandiepen\utility\Sanitize\Filters;
 
-use mikevandiepen\utility\Request\SanitizationInterface;
+use mikevandiepen\utility\Sanitize\SanitizationInterface;
 
-class SanitizeXSS implements SanitizationInterface
+class UpperCase implements SanitizationInterface
 {
     /**
      * The input for sanitization

@@ -1,5 +1,6 @@
 <?php
 
+
 use mikevandiepen\utility\Form;
 
 $data = Form::Sanitize($_POST, [

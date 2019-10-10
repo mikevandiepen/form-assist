@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Request\Filters;
+namespace mikevandiepen\utility\Sanitize\Filters;
 
-use mikevandiepen\utility\Request\SanitizationInterface;
+use mikevandiepen\utility\Sanitize\SanitizationInterface;
 
-class LeftTrim implements SanitizationInterface
+class SanitizeEmail implements SanitizationInterface
 {
     /**
      * The input for sanitization

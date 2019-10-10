@@ -2,166 +2,18 @@
 
 namespace mikevandiepen\utility;
 
-use mikevandiepen\utility\Request\Sanitization;
-use mikevandiepen\utility\Request\Filters\Trim;
-use mikevandiepen\utility\Request\Filters\Slugify;
-use mikevandiepen\utility\Request\Filters\LeftTrim;
-use mikevandiepen\utility\Request\Filters\RightTrim;
-use mikevandiepen\utility\Request\Filters\StripTags;
-use mikevandiepen\utility\Request\Filters\LowerCase;
-use mikevandiepen\utility\Request\Filters\UpperCase;
-use mikevandiepen\utility\Request\Filters\JsonDecode;
-use mikevandiepen\utility\Request\Filters\JsonEncode;
-use mikevandiepen\utility\Request\Filters\SanitizeUrl;
-use mikevandiepen\utility\Request\Filters\SanitizeSQL;
-use mikevandiepen\utility\Request\Filters\SanitizeXSS;
-use mikevandiepen\utility\Request\Filters\SanitizeEmail;
-use mikevandiepen\utility\Request\Filters\SanitizeFloat;
-use mikevandiepen\utility\Request\Filters\SanitizeNumeric;
+use mikevandiepen\utility\Sanitize\Sanitizer;
+use mikevandiepen\utility\Validate\Validator;
 
 class Form
 {
-    /**
-     * All cleaned output will be stored in here
-     * @var array
-     */
-    private static $output = array();
-
-    /**
-     * Validating all the values and applying all the assigned rules
-     * @param array $request
-     * @param array $config
-     *
-     * @return array
-     */
-    public static function sanitize(array $request, array $config = array()) : array
+    public static function validate(array $request, array $config = array())
     {
-        // Parsing through all the fields
-        foreach($config as $field => $filters) {
+        return (new Validator())->validate($request);
+    }
 
-            // Parsing through the filters and applying them to each field
-            foreach(explode('|', $filters) as $filter) {
-                switch($filter) {
-
-                    case 'sql':
-                        self::$output[$field] = (new Sanitization(
-                            new SanitizeSQL($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'xss':
-                        self::$output[$field] = (new Sanitization(
-                            new SanitizeXSS($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'email':
-                        self::$output[$field] = (new Sanitization(
-                            new SanitizeEmail($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'url':
-                        self::$output[$field] = (new Sanitization(
-                            new SanitizeUrl($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'numbers':
-                        self::$output[$field] = (new Sanitization(
-                            new SanitizeNumeric($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'float':
-                        self::$output[$field] = (new Sanitization(
-                            new SanitizeFloat($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'json_encode':
-                    case 'encode_json':
-                        self::$output[$field] = (new Sanitization(
-                            new JsonEncode($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'json_decode':
-                    case 'decode_json':
-                        self::$output[$field] = (new Sanitization(
-                            new JsonDecode($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'trim':
-                    case 'trim_all':
-                        self::$output[$field] = (new Sanitization(
-                            new Trim($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'ltrim':
-                    case 'left_trim':
-                    case 'trim_left':
-                        self::$output[$field] = (new Sanitization(
-                            new LeftTrim($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'rtrim':
-                    case 'right_trim':
-                    case 'trim_right':
-                        self::$output[$field] = (new Sanitization(
-                            new RightTrim($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'upper':
-                    case 'uppercase':
-                        self::$output[$field] = (new Sanitization(
-                            new UpperCase($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'lower':
-                    case 'lowercase':
-                        self::$output[$field] = (new Sanitization(
-                            new LowerCase($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'slug':
-                    case 'slugify':
-                    case 'to_slug':
-                        self::$output[$field] = (new Sanitization(
-                            new Slugify($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'tags':
-                    case 'strip_tags':
-                        self::$output[$field] = (new Sanitization(
-                            new StripTags($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    //------------------------------------------------------------------------------------------------------
-                    // More sanitization filters can be added here
-                    //------------------------------------------------------------------------------------------------------
-                    //
-                    //  EXAMPLE:
-                    //
-                    //  case 'filter':
-                    //      self::$output[] = (new Sanitization(
-                    //          new Filter($request[$field]))
-                    //      )->sanitize();
-                    //  break;
-                    //
-                    //------------------------------------------------------------------------------------------------------
-                }
-            }
-        }
-
-        return self::$output;
+    public static function sanitize(array $request, array $config = array())
+    {
+        return (new Sanitizer())->sanitize($request, $config);
     }
 }
