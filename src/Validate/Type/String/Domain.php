@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Date;
+namespace mikevandiepen\utility\Validate\StringTypes;
 
 use mikevandiepen\utility\Validate\SanitizationInterface;
 
-class Before implements SanitizationInterface
+class Domain implements SanitizationInterface
 {
     /**
      * The name of the current attribute

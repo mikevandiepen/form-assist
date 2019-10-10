@@ -1,23 +1,11 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Date;
+namespace mikevandiepen\utility\Validate\Numeric;
 
 use mikevandiepen\utility\Validate\SanitizationInterface;
 
-class Before implements SanitizationInterface
+class LessThanOrEqualTo implements SanitizationInterface
 {
-    /**
-     * The name of the current attribute
-     * @var string
-     */
-    protected $attribute;
-
-    /**
-     * The value of the current attribute
-     * @var string
-     */
-    protected $value;
-
     /**
      * Validation constructor.
      *
@@ -26,12 +14,12 @@ class Before implements SanitizationInterface
      */
     public function __construct(string $attribute, string $value)
     {
-        $this->attribute = $attribute;
-        $this->value     = $value;
+
     }
 
     /**
      * Validating the assigned rule and returning output
+     *
      * @param array $parameters
      *
      * @return string

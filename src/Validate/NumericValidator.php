@@ -2,7 +2,7 @@
 
 namespace mikevandiepen\utility\Validate;
 
-class NumericValidator implements ValidationInterface
+class NumericValidator implements SanitizationInterface
 {
     /**
      * Validation constructor.

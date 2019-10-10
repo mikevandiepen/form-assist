@@ -2,14 +2,15 @@
 
 namespace mikevandiepen\utility\Validate;
 
-use mikevandiepen\utility\Validate\String\Contains;
-use mikevandiepen\utility\Validate\String\EndsWith;
-use mikevandiepen\utility\Validate\String\MaxLength;
-use mikevandiepen\utility\Validate\String\MinLength;
-use mikevandiepen\utility\Validate\String\Regex;
-use mikevandiepen\utility\Validate\String\StartsWith;
 
-class StringValidator
+
+use mikevandiepen\utility\Validate\StringTypes\Domain;
+use mikevandiepen\utility\Validate\StringTypes\Email;
+use mikevandiepen\utility\Validate\StringTypes\IpAddress;
+use mikevandiepen\utility\Validate\StringTypes\MacAddress;
+use mikevandiepen\utility\Validate\StringTypes\Url;
+
+class TypeValidator
 {
     /**
      * All error messages will be stored in here
@@ -35,39 +36,35 @@ class StringValidator
 
                 // Applying the validation rule for the current iteration
                 switch($rule) {
-                    case 'starts_with':
+                    case 'email':
                         $error = (new Validation(
-                            new StartsWith($field['name'], $field['value']))
+                            new Email($field['name'], $field['value']))
                         )->validate();
                         break;
 
-                    case 'ends_with':
+                    case 'Url':
                         $error = (new Validation(
-                            new EndsWith($field['name'], $field['value']))
+                            new Url($field['name'], $field['value']))
                         )->validate();
                         break;
 
-                    case 'contains':
+                    case 'domain':
                         $error = (new Validation(
-                            new Contains($field['name'], $field['value']))
+                            new Domain($field['name'], $field['value']))
                         )->validate();
                         break;
 
-                    case 'regex':
+                    case 'ip':
+                    case 'ip_address':
                         $error = (new Validation(
-                            new Regex($field['name'], $field['value']))
+                            new IpAddress($field['name'], $field['value']))
                         )->validate();
                         break;
 
-                    case 'min_length':
+                    case 'mac':
+                    case 'mac_address':
                         $error = (new Validation(
-                            new MinLength($field['name'], $field['value']))
-                        )->validate();
-                        break;
-
-                    case 'max_length':
-                        $error = (new Validation(
-                            new MaxLength($field['name'], $field['value']))
+                            new MacAddress($field['name'], $field['value']))
                         )->validate();
                         break;
 

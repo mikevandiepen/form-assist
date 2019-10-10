@@ -5,16 +5,16 @@ namespace mikevandiepen\utility\Validate;
 class Validation
 {
     /**
-     * @var ValidationInterface
+     * @var SanitizationInterface
      */
     protected $validation;
 
     /**
      * Validation constructor.
      *
-     * @param ValidationInterface $validation
+     * @param SanitizationInterface $validation
      */
-    public function __construct(ValidationInterface $validation)
+    public function __construct(SanitizationInterface $validation)
     {
         $this->validation = $validation;
     }

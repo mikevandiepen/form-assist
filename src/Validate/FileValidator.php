@@ -2,7 +2,7 @@
 
 namespace mikevandiepen\utility\Validate;
 
-class FileValidator implements ValidationInterface
+class FileValidator implements SanitizationInterface
 {
     /**
      * Validation constructor.

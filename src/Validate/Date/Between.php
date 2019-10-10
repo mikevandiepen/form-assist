@@ -2,9 +2,9 @@
 
 namespace mikevandiepen\utility\Validate\Date;
 
-use mikevandiepen\utility\Validate\ValidationInterface;
+use mikevandiepen\utility\Validate\SanitizationInterface;
 
-class Between implements ValidationInterface
+class Between implements SanitizationInterface
 {
     /**
      * The name of the current attribute
