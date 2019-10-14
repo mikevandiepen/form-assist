@@ -1,13 +1,14 @@
 <?php
 
 use mikevandiepen\utility\Form;
+$link = ''; // This should be your mysql connection
 
 $clean = Form::Sanitize($_POST, [
-    $_POST['field']     => 'sql|xss|trim',
-    $_POST['field2']    => 'sql|xss|trim',
-]);
+    'currency'  => 'sql|xss|trim',
+    'email'     => 'sql|xss|trim|email',
+], $link);
 
 $valid = Form::validate($clean, [
-    $clean['field']     => 'string',
-    $clean['field2']    => '',
+    'currency'  => 'required|starts_with:eur|max_length:6',
+    'email'     => 'required|email',
 ]);

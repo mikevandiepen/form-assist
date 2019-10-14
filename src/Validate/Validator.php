@@ -16,101 +16,105 @@ class Validator
      * @param array $config
      * @return array
      */
-    public function validate(array $request, array $config = []): array
+    public function validate(array $request, array $config = array()): array
     {
         // Parsing through all the fields
         foreach ($config as $field => $rules) {
 
             // Parsing through the filters and applying them to each field
             foreach (explode('|', $rules) as $rule) {
-                switch ($rule) {
+
+                // Extracting the parameters
+                $configuration = $this->extractParameters($rule);
+
+                switch ($configuration['rule']) {
 
                     // Date validation
                     case 'before_date':
                         self::$output[$field] = (new Validation(
-                            new Date\Before($field, $request[$field]))
+                            new Rules\Date\Before($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'after_date':
                         self::$output[$field] = (new Validation(
-                            new Date\After($field, $request[$field]))
+                            new Rules\Date\After($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'between_dates':
                         self::$output[$field] = (new Validation(
-                            new Date\Between($field, $request[$field]))
+                            new Rules\Date\Between($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     // String validation
                     case 'starts_with':
                         self::$output[$field] = (new Validation(
-                            new String\StartsWith($field, $request[$field]))
+                            new Rules\String\StartsWith($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'ends_with':
                         self::$output[$field] = (new Validation(
-                            new String\EndsWith($field, $request[$field]))
+                            new Rules\String\EndsWith($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'contains':
                         self::$output[$field] = (new Validation(
-                            new String\Contains($field, $request[$field]))
+                            new Rules\String\Contains($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'regex':
                         self::$output[$field] = (new Validation(
-                            new String\Regex($field, $request[$field]))
+                            new Rules\String\Regex($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'min_length':
                         self::$output[$field] = (new Validation(
-                            new String\MinLength($field, $request[$field]))
+                            new Rules\String\MinLength($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'max_length':
                         self::$output[$field] = (new Validation(
-                            new String\MaxLength($field, $request[$field]))
+                            new Rules\String\MaxLength($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     // String types
                     case 'email':
                         self::$output[$field] = (new Validation(
-                            new String\Email($field, $request[$field]))
+                            new Rules\String\Email($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
-                    case 'Url':
+                    case 'url':
                         self::$output[$field] = (new Validation(
-                            new String\Url($field, $request[$field]))
+                            new Rules\String\Url($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'domain':
                         self::$output[$field] = (new Validation(
-                            new String\Domain($field, $request[$field]))
+                            new Rules\String\Domain($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'ip':
                     case 'ip_address':
                         self::$output[$field] = (new Validation(
-                            new String\IpAddress($field, $request[$field]))
+                            new Rules\String\IpAddress($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'mac':
                     case 'mac_address':
                         self::$output[$field] = (new Validation(
-                            new String\MacAddress($field, $request[$field]))
+                            new Rules\String\MacAddress($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
@@ -118,40 +122,40 @@ class Validator
                     case 'num':
                     case 'numeric':
                         self::$output[$field] = (new Validation(
-                            new Numeric\Numeric($field, $request[$field]))
+                            new Rules\Numeric\Numeric($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'float':
                         self::$output[$field] = (new Validation(
-                            new Numeric\ValidateFloat($field, $request[$field]))
+                            new Rules\Numeric\ValidateFloat($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'bool':
                     case 'boolean':
                         self::$output[$field] = (new Validation(
-                            new Numeric\ValidateBool($field, $request[$field]))
+                            new Rules\Numeric\ValidateBool($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'between':
                         self::$output[$field] = (new Validation(
-                            new Numeric\Between($field, $request[$field]))
+                            new Rules\Numeric\Between($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'min':
                     case 'minimum':
                         self::$output[$field] = (new Validation(
-                            new Numeric\Min($field, $request[$field]))
+                            new Rules\Numeric\Min($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'max':
                     case 'maximum':
                         self::$output[$field] = (new Validation(
-                            new Numeric\Max($field, $request[$field]))
+                            new Rules\Numeric\Max($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
@@ -160,42 +164,42 @@ class Validator
                     case 'equal_to':
                     case 'equals_to':
                         self::$output[$field] = (new Validation(
-                            new Numeric\Equal($field, $request[$field]))
+                            new Rules\Numeric\Equal($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'not_equal':
                     case 'not_equal_to':
                         self::$output[$field] = (new Validation(
-                            new Numeric\NotEqual($field, $request[$field]))
+                            new Rules\Numeric\NotEqual($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'gt':
                     case 'greater_than':
                         self::$output[$field] = (new Validation(
-                            new Numeric\GreaterThan($field, $request[$field]))
+                            new Rules\Numeric\GreaterThan($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'gte':
                     case 'greater_than_or_equal_to':
                         self::$output[$field] = (new Validation(
-                            new Numeric\GreaterThanOrEqualTo($field, $request[$field]))
+                            new Rules\Numeric\GreaterThanOrEqualTo($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'lt':
                     case 'less_than':
                         self::$output[$field] = (new Validation(
-                            new Numeric\LessThan($field, $request[$field]))
+                            new Rules\Numeric\LessThan($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
                     case 'lte':
                     case 'less_than_or_equal_to':
                         self::$output[$field] = (new Validation(
-                            new Numeric\LessThanOrEqualTo($field, $request[$field]))
+                            new Rules\Numeric\LessThanOrEqualTo($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
@@ -217,5 +221,26 @@ class Validator
         }
 
         return self::$output;
+    }
+
+    /**
+     * This method extracts the parameters from the configuration
+     * @param string $rule
+     *
+     * @return array
+     */
+    private function extractParameters(string &$rule): array
+    {
+        $parameters = null;
+
+        // Checking if there are parameters for the rule
+        if (strpos($rule, ':')) {
+            preg_match('\:(.*)', $rule, $parameters);
+        }
+
+        return [
+            'rule'          => $rule,
+            'parameters'    => explode(',', $parameters)
+        ];
     }
 }

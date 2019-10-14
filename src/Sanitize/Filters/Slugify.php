@@ -13,13 +13,21 @@ class Slugify implements SanitizationInterface
     protected $input;
 
     /**
+     * The link for the mysqli connection
+     * @var
+     */
+    private $link;
+
+    /**
      * SanitizationInterface constructor.
      *
-     * @param $input
+     * @param      $input
+     * @param null $link
      */
-    public function __construct($input)
+    public function __construct($input, ?$link = null)
     {
         $this->input = $input;
+        $this->link = $link;
     }
 
     /**
@@ -65,11 +73,4 @@ class Slugify implements SanitizationInterface
             ), '-')
         );
     }
-
-    /**
-     * This method is only used in the class SanitizeSQL
-     * @param $link
-     * @return void
-     */
-    public function link($link) : void {}
 }

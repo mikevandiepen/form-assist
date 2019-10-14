@@ -7,20 +7,14 @@ interface SanitizationInterface
     /**
      * SanitizationInterface constructor.
      *
-     * @param $input
+     * @param      $input
+     * @param null $link
      */
-    public function __construct($input);
+    public function __construct($input, ?$link = null);
 
     /**
      * Validating the attribute
      * @return string
      */
     public function sanitize(): string;
-
-    /**
-     * @param $link
-     *
-     * @return mixed
-     */
-    public function link($link);
 }

@@ -15,7 +15,7 @@ class Form
      */
     public static function validate(array $request, array $config = array())
     {
-        return (new Validator())->validate($request);
+        return (new Validator())->validate($request, $config);
     }
 
     /**

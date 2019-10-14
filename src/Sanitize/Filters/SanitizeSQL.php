@@ -21,11 +21,13 @@ class SanitizeSQL implements SanitizationInterface
     /**
      * SanitizationInterface constructor.
      *
-     * @param $input
+     * @param      $input
+     * @param null $link
      */
-    public function __construct($input)
+    public function __construct($input, ?$link = null)
     {
         $this->input = $input;
+        $this->link = $link;
     }
 
     /**
@@ -34,13 +36,6 @@ class SanitizeSQL implements SanitizationInterface
      */
     public function sanitize() : string
     {
-        return mysqli_real_escape_string($this->input);
-    }
-
-    public function link($link) : self
-    {
-        $this->link = $link;
-
-        return $this;
+        return mysqli_real_escape_string($this->link, $this->input);
     }
 }

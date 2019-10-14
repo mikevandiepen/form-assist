@@ -45,7 +45,7 @@ class Sanitizer
 
                     case 'sql':
                         self::$output[$field] = (new Sanitization(
-                            new SanitizeSQL($request[$field]))
+                            new SanitizeSQL($request[$field], $link))
                         )->sanitize();
                         break;
 

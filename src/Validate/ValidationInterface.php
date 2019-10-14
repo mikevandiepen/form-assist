@@ -9,14 +9,13 @@ interface ValidationInterface
      *
      * @param string $attribute
      * @param string $value
+     * @param array  $parameters
      */
-    public function __construct(string $attribute, string $value);
+    public function __construct(string $attribute, string $value, array $parameters = array());
 
     /**
      * Validating the assigned rule and returning output
-     * @param array $parameters
-     *
      * @return string
      */
-    public function validate(array $parameters = array()) : string ;
+    public function validate() : string ;
 }

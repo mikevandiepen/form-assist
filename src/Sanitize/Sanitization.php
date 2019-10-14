@@ -31,20 +31,6 @@ class Sanitization
      */
     public function sanitize(): string
     {
-        return empty($this->link)
-            ? $this->sanitization->sanitize()
-            : $this->sanitization->link($this->link)->sanitize();
-    }
-
-    /**
-     * @param $link
-     *
-     * @return Sanitization
-     */
-    public function link($link) : self
-    {
-        $this->link = $link;
-
-        return $this;
+        return $this->sanitization->sanitize();
     }
 }
