@@ -15,6 +15,7 @@
     "psr-4": {"Advanced-form-helper\\": "/src"}
   },
   "require": {
-    "php": "^7.0"
+    "php": "^7.0",
+    "mikevandiepen/response": "1.1.0"
   }
 }
