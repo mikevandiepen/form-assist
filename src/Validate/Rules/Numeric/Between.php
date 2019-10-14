@@ -55,7 +55,7 @@ class Between implements ValidationInterface
         if ( !(($this->value > $this->parameters[0] && $this->value < $this->parameters[1])
             || ($this->value > $this->parameters[1] && $this->value < $this->parameters[0]))) {
 
-            $response->add($this->getMessage(['numeric_between']), [
+            $response->add($this->getMessage('numeric_between'), [
                 'attr'      => $this->attribute,
                 'value'     => $this->value,
                 'threshold' => $this->parameters[0]

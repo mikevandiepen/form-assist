@@ -1,12 +1,12 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\Numeric;
+namespace mikevandiepen\utility\Validate\Rules\Basic;
 
 use mikevandiepen\utility\Response;
 use mikevandiepen\utility\Validate\TranslationTrait;
 use mikevandiepen\utility\Validate\ValidationInterface;
 
-class LessThan implements ValidationInterface
+class Required implements ValidationInterface
 {
     use TranslationTrait;
 
@@ -51,11 +51,9 @@ class LessThan implements ValidationInterface
     {
         $response = new Response();
 
-        if ( !($this->value < $this->parameters[0])) {
-            $response->add($this->getMessage('numeric_less_than'), [
-                'attr'      => $this->attribute,
-                'value'     => $this->value,
-                'threshold' => $this->parameters[0]
+        if ( !empty($this->value)) {
+            $response->add($this->getMessage('required'), [
+                'attr' => $this->attribute
             ], Response::ERROR, true, ['<strong>', '</strong>']);
         }
 

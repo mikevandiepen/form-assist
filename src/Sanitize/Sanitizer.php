@@ -34,7 +34,7 @@ class Sanitizer
      *
      * @return array
      */
-    public function sanitize(array $request, array $config = array(), ?$link = null) : array
+    public function sanitize(array $request, array $config = array(), $link = null) : array
     {
         // Parsing through all the fields
         foreach($config as $field => $filters) {

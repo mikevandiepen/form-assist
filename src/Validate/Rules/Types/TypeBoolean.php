@@ -1,12 +1,12 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\Numeric;
+namespace mikevandiepen\utility\Validate\Rules\Types;
 
 use mikevandiepen\utility\Response;
 use mikevandiepen\utility\Validate\TranslationTrait;
 use mikevandiepen\utility\Validate\ValidationInterface;
 
-class Numeric implements ValidationInterface
+class TypeBoolean implements ValidationInterface
 {
     use TranslationTrait;
 
@@ -51,11 +51,9 @@ class Numeric implements ValidationInterface
     {
         $response = new Response();
 
-        if ( !(is_numeric($this->value))) {
-            $response->add($this->getMessage(['numeric_equal']), [
-                'attr'      => $this->attribute,
-                'value'     => $this->value,
-                'threshold' => $this->parameters[0]
+        if ( !(is_bool($this->value))) {
+            $response->add($this->getMessage('type_boolean'), [
+                'attr' => $this->attribute,
             ], Response::ERROR, true, ['<strong>', '</strong>']);
         }
 

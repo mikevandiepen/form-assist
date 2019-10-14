@@ -8,7 +8,7 @@ class Validator
      * All cleaned output will be stored in here
      * @var array
      */
-    private static $output = [];
+    private static $output = array();
 
     /**
      * Validating all the values and applying all the assigned rules
@@ -28,6 +28,58 @@ class Validator
                 $configuration = $this->extractParameters($rule);
 
                 switch ($configuration['rule']) {
+                    // Basic validation
+                    case 'required':
+                        self::$output[$field] = (new Validation(
+                            new Rules\Basic\Required($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
+
+                    // Type validation
+                    case 'num':
+                    case 'numeric':
+                        self::$output[$field] = (new Validation(
+                            new Rules\Types\TypeNumeric($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
+
+                    case 'float':
+                        self::$output[$field] = (new Validation(
+                            new Rules\Types\TypeFloat($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
+
+                    case 'bool':
+                    case 'boolean':
+                        self::$output[$field] = (new Validation(
+                            new Rules\Types\TypeBoolean($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
+
+                    case 'int':
+                    case 'integer':
+                        self::$output[$field] = (new Validation(
+                            new Rules\Types\TypeInteger($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
+
+                    case 'null':
+                        self::$output[$field] = (new Validation(
+                            new Rules\Types\TypeNull($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
+
+                    case 'string':
+                        self::$output[$field] = (new Validation(
+                            new Rules\Types\TypeString($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
+
+                    case 'array':
+                        self::$output[$field] = (new Validation(
+                            new Rules\Types\TypeArray($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
 
                     // Date validation
                     case 'before_date':
@@ -70,6 +122,12 @@ class Validator
                     case 'regex':
                         self::$output[$field] = (new Validation(
                             new Rules\String\Regex($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
+
+                    case 'exact_length':
+                        self::$output[$field] = (new Validation(
+                            new Rules\String\ExactLength($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 
@@ -119,26 +177,6 @@ class Validator
                         break;
 
                     // Numeric validation
-                    case 'num':
-                    case 'numeric':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\Numeric($field, $request[$field], $configuration['parameters']))
-                        )->validate();
-                        break;
-
-                    case 'float':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\ValidateFloat($field, $request[$field], $configuration['parameters']))
-                        )->validate();
-                        break;
-
-                    case 'bool':
-                    case 'boolean':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\ValidateBool($field, $request[$field], $configuration['parameters']))
-                        )->validate();
-                        break;
-
                     case 'between':
                         self::$output[$field] = (new Validation(
                             new Rules\Numeric\Between($field, $request[$field], $configuration['parameters']))
@@ -220,7 +258,7 @@ class Validator
             }
         }
 
-        return self::$output;
+        return json_encode(self::$output, JSON_PRETTY_PRINT);
     }
 
     /**

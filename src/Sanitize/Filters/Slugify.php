@@ -24,7 +24,7 @@ class Slugify implements SanitizationInterface
      * @param      $input
      * @param null $link
      */
-    public function __construct($input, ?$link = null)
+    public function __construct($input, $link = null)
     {
         $this->input = $input;
         $this->link = $link;

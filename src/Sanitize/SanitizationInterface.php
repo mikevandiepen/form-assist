@@ -10,7 +10,7 @@ interface SanitizationInterface
      * @param      $input
      * @param null $link
      */
-    public function __construct($input, ?$link = null);
+    public function __construct($input, $link = null);
 
     /**
      * Validating the attribute

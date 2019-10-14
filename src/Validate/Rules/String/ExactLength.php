@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\Numeric;
+namespace mikevandiepen\utility\Validate\Rules\String;
 
 use mikevandiepen\utility\Validate\ValidationInterface;
 
-class ValidateFloat implements ValidationInterface
+class ExactLength implements ValidationInterface
 {
     /**
      * The name of the current attribute

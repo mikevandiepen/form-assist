@@ -12,23 +12,12 @@ trait TranslationTrait
 
     /**
      * This returns an array with the error messages of the selected language
-     * @return array
+     * @param string $key
+     * @return string
      * @throws \Exception
      */
-    public function getMessage() : array
+    public function getMessage(string $key) : string
     {
-        try {
-            $file = '../Lang/' . $this->locale . '.php';
-
-            if (file_exists($file)) {
-                return include_once($file);
-            } else {
-                throw new \Exception('Translation "' . $this->locale . '" not found!');
-            }
-
-        } catch (\Exception $e) {
-            print $e->getMessage();
-            exit();
-        }
+        return (include_once( 'Lang/' . $this->locale . '.php'))[$key];
     }
 }

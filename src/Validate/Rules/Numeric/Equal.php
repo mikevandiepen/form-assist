@@ -52,7 +52,7 @@ class Equal implements ValidationInterface
         $response = new Response();
 
         if ( !($this->value == $this->parameters[0])) {
-            $response->add($this->getMessage(['numeric_equal']), [
+            $response->add($this->getMessage('numeric_equal'), [
                 'attr'      => $this->attribute,
                 'value'     => $this->value,
                 'threshold' => $this->parameters[0]

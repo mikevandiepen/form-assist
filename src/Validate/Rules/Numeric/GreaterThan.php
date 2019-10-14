@@ -52,7 +52,7 @@ class GreaterThan implements ValidationInterface
         $response = new Response();
 
         if ( !($this->value > $this->parameters[0])) {
-            $response->add($this->getMessage(['numeric_greater_than']), [
+            $response->add($this->getMessage('numeric_greater_than'), [
                 'attr'      => $this->attribute,
                 'value'     => $this->value,
                 'threshold' => $this->parameters[0]

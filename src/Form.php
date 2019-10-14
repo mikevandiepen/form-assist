@@ -25,7 +25,7 @@ class Form
      *
      * @return array
      */
-    public static function sanitize(array $request, array $config = array(), ?$link = null)
+    public static function sanitize(array $request, array $config = array(), $link = null)
     {
         return (new Sanitizer())->sanitize($request, $config, $link);
     }

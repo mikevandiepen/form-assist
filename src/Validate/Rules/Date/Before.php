@@ -52,7 +52,7 @@ class Before implements ValidationInterface
         $response = new Response();
 
         if ( !($this->value > $this->parameters[0]) ) {
-            $response->add($this->getMessage(['date_before']), [
+            $response->add($this->getMessage('date_before'), [
                 'attr'      => $this->attribute,
                 'value'     => $this->value,
                 'threshold' => $this->parameters[0]
