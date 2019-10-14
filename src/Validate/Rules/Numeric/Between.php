@@ -3,6 +3,7 @@
 namespace mikevandiepen\utility\Validate\Rules\Numeric;
 
 use mikevandiepen\utility\Validate\ValidationInterface;
+use mysqli;
 
 class Between implements ValidationInterface
 {
