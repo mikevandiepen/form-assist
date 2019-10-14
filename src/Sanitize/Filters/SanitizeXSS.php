@@ -28,6 +28,13 @@ class SanitizeXSS implements SanitizationInterface
      */
     public function sanitize() : string
     {
-        // TODO: Implement sanitize() method.
+        return htmlentities($this->input, ENT_QUOTES);
     }
+
+    /**
+     * This method is only used in the class SanitizeSQL
+     * @param $link
+     * @return void
+     */
+    public function link($link) : void {}
 }

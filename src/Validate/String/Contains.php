@@ -2,9 +2,9 @@
 
 namespace mikevandiepen\utility\Validate\String;
 
-use mikevandiepen\utility\Validate\SanitizationInterface;
+use mikevandiepen\utility\Validate\ValidationInterface;
 
-class Contains implements SanitizationInterface
+class Contains implements ValidationInterface
 {
     /**
      * The name of the current attribute

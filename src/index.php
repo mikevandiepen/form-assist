@@ -1,9 +1,13 @@
 <?php
 
-
 use mikevandiepen\utility\Form;
 
-$data = Form::Sanitize($_POST, [
-      $_POST['field']   => 'sql|xss|trim',
-      $_POST['field2']  => 'sql|xss|trim',
+$clean = Form::Sanitize($_POST, [
+    $_POST['field']     => 'sql|xss|trim',
+    $_POST['field2']    => 'sql|xss|trim',
+]);
+
+$valid = Form::validate($clean, [
+    $clean['field']     => 'string',
+    $clean['field2']    => '',
 ]);

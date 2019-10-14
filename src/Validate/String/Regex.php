@@ -2,9 +2,9 @@
 
 namespace mikevandiepen\utility\Validate\String;
 
-use mikevandiepen\utility\Validate\SanitizationInterface;
+use mikevandiepen\utility\Validate\ValidationInterface;
 
-class Regex implements SanitizationInterface
+class Regex implements ValidationInterface
 {
     /**
      * The name of the current attribute

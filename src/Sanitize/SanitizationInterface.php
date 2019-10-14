@@ -16,4 +16,11 @@ interface SanitizationInterface
      * @return string
      */
     public function sanitize(): string;
+
+    /**
+     * @param $link
+     *
+     * @return mixed
+     */
+    public function link($link);
 }

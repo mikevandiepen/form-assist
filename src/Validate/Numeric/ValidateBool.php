@@ -1,8 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Validate;
+namespace mikevandiepen\utility\Validate\Numeric;
 
-class NumericValidator implements SanitizationInterface
+use mikevandiepen\utility\Validate\ValidationInterface;
+
+class ValidateBool implements ValidationInterface
 {
     /**
      * Validation constructor.

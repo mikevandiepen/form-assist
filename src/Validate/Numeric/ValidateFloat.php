@@ -1,8 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Validate;
+namespace mikevandiepen\utility\Validate\Numeric;
 
-class FileValidator implements SanitizationInterface
+use mikevandiepen\utility\Validate\ValidationInterface;
+
+class ValidateFloat implements ValidationInterface
 {
     /**
      * Validation constructor.

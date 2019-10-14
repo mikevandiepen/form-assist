@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Validate;
+namespace mikevandiepen\utility\Validate\String;
 
-use mikevandiepen\utility\Validate\SanitizationInterface;
+use mikevandiepen\utility\Validate\ValidationInterface;
 
-class Url implements SanitizationInterface
+class Url implements ValidationInterface
 {
     /**
      * The name of the current attribute

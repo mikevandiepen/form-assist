@@ -28,6 +28,13 @@ class JsonEncode implements SanitizationInterface
      */
     public function sanitize() : string
     {
-        // TODO: Implement sanitize() method.
+        return json_encode($this->input, JSON_PRETTY_PRINT);
     }
+
+    /**
+     * This method is only used in the class SanitizeSQL
+     * @param $link
+     * @return void
+     */
+    public function link($link) : void {}
 }

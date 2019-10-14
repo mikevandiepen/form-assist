@@ -10,6 +10,12 @@ class Sanitization
     protected $sanitization;
 
     /**
+     * The link for the mysqli connection
+     * @var
+     */
+    private $link;
+
+    /**
      * Validation constructor.
      *
      * @param SanitizationInterface $sanitization
@@ -25,6 +31,20 @@ class Sanitization
      */
     public function sanitize(): string
     {
-        return $this->sanitization->sanitize();
+        return empty($this->link)
+            ? $this->sanitization->sanitize()
+            : $this->sanitization->link($this->link)->sanitize();
+    }
+
+    /**
+     * @param $link
+     *
+     * @return Sanitization
+     */
+    public function link($link) : self
+    {
+        $this->link = $link;
+
+        return $this;
     }
 }

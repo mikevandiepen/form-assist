@@ -28,6 +28,13 @@ class StripTags implements SanitizationInterface
      */
     public function sanitize() : string
     {
-        // TODO: Implement sanitize() method.
+        return strip_tags($this->input);
     }
+
+    /**
+     * This method is only used in the class SanitizeSQL
+     * @param $link
+     * @return void
+     */
+    public function link($link) : void {}
 }

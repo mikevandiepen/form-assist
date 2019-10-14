@@ -13,6 +13,12 @@ class SanitizeSQL implements SanitizationInterface
     protected $input;
 
     /**
+     * The link for the mysqli connection
+     * @var
+     */
+    private $link;
+
+    /**
      * SanitizationInterface constructor.
      *
      * @param $input
@@ -28,6 +34,13 @@ class SanitizeSQL implements SanitizationInterface
      */
     public function sanitize() : string
     {
-        // TODO: Implement sanitize() method.
+        return mysqli_real_escape_string($this->input);
+    }
+
+    public function link($link) : self
+    {
+        $this->link = $link;
+
+        return $this;
     }
 }

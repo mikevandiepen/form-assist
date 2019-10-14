@@ -30,10 +30,11 @@ class Sanitizer
      * Validating all the values and applying all the assigned rules
      * @param array $request
      * @param array $config
+     * @param null  $link
      *
      * @return array
      */
-    public function sanitize(array $request, array $config = array()) : array
+    public function sanitize(array $request, array $config = array(), ?$link = null) : array
     {
         // Parsing through all the fields
         foreach($config as $field => $filters) {
