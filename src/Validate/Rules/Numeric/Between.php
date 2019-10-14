@@ -2,11 +2,14 @@
 
 namespace mikevandiepen\utility\Validate\Rules\Numeric;
 
+use mikevandiepen\utility\Response;
+use mikevandiepen\utility\Validate\TranslationTrait;
 use mikevandiepen\utility\Validate\ValidationInterface;
-use mysqli;
 
 class Between implements ValidationInterface
 {
+    use TranslationTrait;
+
     /**
      * The name of the current attribute
      * @var string
@@ -42,11 +45,23 @@ class Between implements ValidationInterface
     /**
      * Validating the assigned rule and returning output
      * @return string
+     * @throws \Exception
      */
     public function validate() : string
     {
+        $response = new Response();
+
         // Validating if value is between the two parameters, the order of the parameters doesn't matter.
-        return ($this->value > $this->parameters[0] && $this->value < $this->parameters[1])
-            || ($this->value > $this->parameters[1] && $this->value < $this->parameters[0]);
+        if ( !(($this->value > $this->parameters[0] && $this->value < $this->parameters[1])
+            || ($this->value > $this->parameters[1] && $this->value < $this->parameters[0]))) {
+
+            $response->add($this->getMessage(['numeric_between']), [
+                'attr'      => $this->attribute,
+                'value'     => $this->value,
+                'threshold' => $this->parameters[0]
+            ], Response::ERROR, true, ['<strong>', '</strong>']);
+        }
+
+        return $response->get();
     }
 }
