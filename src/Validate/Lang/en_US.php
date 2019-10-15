@@ -6,15 +6,15 @@
 //
 //  List of parameters:
 //
-//  {%attr%}:       The field / attribute
-//  {%value%}:      The value of the field
-//  {%threshold%}:  The threshold of the validation rule
+//  {%attr%}:           The field / attribute
+//  {%value%}:          The value of the field
+//  {%threshold%}:      The threshold of the validation rule
 //----------------------------------------------------------------------------------------------------------------------
 //
 //  If your rule has multiple Thresholds or values, the parameters will go as follow:
 //
-//  {%value1%}:      The first value of the field (Increments)
-//  {%threshold1%}:  The first threshold of the field (Increments)
+//  {%value_1%}:        The first value of the field (Increments)
+//  {%threshold_1%}:    The first threshold of the field (Increments)
 //
 //----------------------------------------------------------------------------------------------------------------------
 //                      Is this a custom language file? Please submit it to the repository!

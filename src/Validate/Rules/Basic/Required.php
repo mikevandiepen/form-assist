@@ -3,43 +3,26 @@
 namespace mikevandiepen\utility\Validate\Rules\Basic;
 
 use mikevandiepen\utility\Response;
-use mikevandiepen\utility\Validate\TranslationTrait;
 use mikevandiepen\utility\Validate\ValidationInterface;
+use mikevandiepen\utility\Validate\Traits\AttributesTrait;
+use mikevandiepen\utility\Validate\Traits\TranslationTrait;
 
 class Required implements ValidationInterface
 {
-    use TranslationTrait;
-
-    /**
-     * The name of the current attribute
-     * @var string
-     */
-    protected $attribute;
-
-    /**
-     * The value of the current attribute
-     * @var string
-     */
-    protected $value;
-
-    /**
-     * The parameters set to validate by
-     * @var array
-     */
-    protected $parameters;
+    use TranslationTrait, AttributesTrait;
 
     /**
      * ValidationRule constructor.
      *
-     * @param string $attribute
-     * @param string $value
-     * @param array  $parameters
+     * @param array $attributes
+     * @param array $values
+     * @param array $parameters
      */
-    public function __construct(string $attribute, string $value, array $parameters = array())
+    public function __construct(array $attributes, array $values, array $parameters = array())
     {
-        $this->attribute    = $attribute;
-        $this->value        = $value;
-        $this->parameters   = $parameters;
+        $this->attributes = $attributes;
+        $this->values     = $values;
+        $this->parameters = $parameters;
     }
 
     /**
@@ -51,10 +34,8 @@ class Required implements ValidationInterface
     {
         $response = new Response();
 
-        if ( !empty($this->value)) {
-            $response->add($this->getMessage('required'), [
-                'attr' => $this->attribute
-            ], Response::ERROR, true, ['<strong>', '</strong>']);
+        if (!empty($this->values[0])) {
+            $response->add($this->getMessage('required'), $this->getAttributes(), Response::ERROR, true, ['<strong>', '</strong>']);
         }
 
         return $response->get();

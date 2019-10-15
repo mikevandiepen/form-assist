@@ -21,6 +21,9 @@ class Validator
         // Parsing through all the fields
         foreach ($config as $field => $rules) {
 
+            // Casting field to an array
+            $field = array($field);
+
             // Parsing through the filters and applying them to each field
             foreach (explode('|', $rules) as $rule) {
 

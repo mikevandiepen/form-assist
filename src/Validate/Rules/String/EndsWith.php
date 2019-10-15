@@ -2,48 +2,42 @@
 
 namespace mikevandiepen\utility\Validate\Rules\String;
 
+use mikevandiepen\utility\Response;
 use mikevandiepen\utility\Validate\ValidationInterface;
+use mikevandiepen\utility\Validate\Traits\AttributesTrait;
+use mikevandiepen\utility\Validate\Traits\TranslationTrait;
 
 class EndsWith implements ValidationInterface
 {
-    /**
-     * The name of the current attribute
-     * @var string
-     */
-    protected $attribute;
-
-    /**
-     * The value of the current attribute
-     * @var string
-     */
-    protected $value;
-
-    /**
-     * The parameters set to validate by
-     * @var array
-     */
-    protected $parameters;
+    use TranslationTrait, AttributesTrait;
 
     /**
      * ValidationRule constructor.
      *
-     * @param string $attribute
-     * @param string $value
-     * @param array  $parameters
+     * @param array $attributes
+     * @param array $values
+     * @param array $parameters
      */
-    public function __construct(string $attribute, string $value, array $parameters = array())
+    public function __construct(array $attributes, array $values, array $parameters = array())
     {
-        $this->attribute    = $attribute;
-        $this->value        = $value;
-        $this->parameters   = $parameters;
+        $this->attributes = $attributes;
+        $this->values     = $values;
+        $this->parameters = $parameters;
     }
 
     /**
      * Validating the assigned rule and returning output
      * @return string
+     * @throws \Exception
      */
     public function validate() : string
     {
-        // TODO: Implement validate() method.
+        $response = new Response();
+
+        if (!(substr_compare($this->values[0], $this->parameters[0], -strlen($this->parameters[0])) === 0)) {
+            $response->add($this->getMessage('ends_with'), $this->getAttributes(), Response::ERROR, true, ['<strong>', '</strong>']);
+        }
+
+        return $response->get();
     }
 }

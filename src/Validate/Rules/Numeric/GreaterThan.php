@@ -3,43 +3,26 @@
 namespace mikevandiepen\utility\Validate\Rules\Numeric;
 
 use mikevandiepen\utility\Response;
-use mikevandiepen\utility\Validate\TranslationTrait;
 use mikevandiepen\utility\Validate\ValidationInterface;
+use mikevandiepen\utility\Validate\Traits\AttributesTrait;
+use mikevandiepen\utility\Validate\Traits\TranslationTrait;
 
 class GreaterThan implements ValidationInterface
 {
-    use TranslationTrait;
-
-    /**
-     * The name of the current attribute
-     * @var string
-     */
-    protected $attribute;
-
-    /**
-     * The value of the current attribute
-     * @var string
-     */
-    protected $value;
-
-    /**
-     * The parameters set to validate by
-     * @var array
-     */
-    protected $parameters;
+    use TranslationTrait, AttributesTrait;
 
     /**
      * ValidationRule constructor.
      *
-     * @param string $attribute
-     * @param string $value
-     * @param array  $parameters
+     * @param array $attributes
+     * @param array $values
+     * @param array $parameters
      */
-    public function __construct(string $attribute, string $value, array $parameters = array())
+    public function __construct(array $attributes, array $values, array $parameters = array())
     {
-        $this->attribute    = $attribute;
-        $this->value        = $value;
-        $this->parameters   = $parameters;
+        $this->attributes = $attributes;
+        $this->values     = $values;
+        $this->parameters = $parameters;
     }
 
     /**
@@ -51,12 +34,8 @@ class GreaterThan implements ValidationInterface
     {
         $response = new Response();
 
-        if ( !($this->value > $this->parameters[0])) {
-            $response->add($this->getMessage('numeric_greater_than'), [
-                'attr'      => $this->attribute,
-                'value'     => $this->value,
-                'threshold' => $this->parameters[0]
-            ], Response::ERROR, true, ['<strong>', '</strong>']);
+        if (!($this->values[0] > $this->parameters[0])) {
+            $response->add($this->getMessage('numeric_greater_than'), $this->getAttributes(), Response::ERROR, true, ['<strong>', '</strong>']);
         }
 
         return $response->get();

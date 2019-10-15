@@ -1,6 +1,6 @@
 <?php
 
-namespace mikevandiepen\utility\Validate;
+namespace mikevandiepen\utility\Validate\Traits;
 
 trait TranslationTrait
 {
