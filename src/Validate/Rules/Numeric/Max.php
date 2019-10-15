@@ -8,7 +8,7 @@ use mikevandiepen\utility\Validate\Traits\AttributesTrait;
 
 class Max implements ValidationInterface
 {
-    useAttributesTrait;
+    use AttributesTrait;
 
     /**
      * ValidationRule constructor.
