@@ -57,5 +57,9 @@ return [
     'max_length'                        => 'Field: {%attr%} must have a maximum length of {%threshold%}. Your value: {%value%}.',
     'starts_with'                       => 'Field: {%attr%} must start with {%threshold%}. Your value: {%value%}',
     'ends_with'                         => 'Field: {%attr%} must ends with {%threshold%}. Your value: {%value%}',
+    // File validation
+    'file_max_size'                     => 'File too large! The size of your file may not be greater than {%threshold%}. File size: {%value%}.',
+    'file_allowed_mime_type'            => 'Invalid file type! Your file must be of type {%threshold_list%}. Your file type: {$value$}',
+    'file_allowed_extensions'           => 'Invalid file type! Your file must be of type {%threshold_list%}. Your file type: {$value$}',
     // Add your custom rules below.
 ];

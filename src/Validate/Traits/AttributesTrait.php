@@ -36,6 +36,7 @@ trait AttributesTrait
             for ($i = 0; $i < count($this->parameters); $i++) {
                 $attributes['threshold_' . $i] = $this->parameters[$i];
             }
+            $attributes['threshold_list'] = implode(', ', $this->parameters);
         } else {
             $attributes['threshold'] = $this->parameters[0];
         }
@@ -45,17 +46,19 @@ trait AttributesTrait
             for ($i = 0; $i < count($this->values); $i++) {
                 $attributes['value_' . $i] = $this->values[$i];
             }
+            $attributes['value_list'] = implode(', ', $this->values);
         } else {
             $attributes['value'] = $this->values[0];
         }
 
         // Parsing through all the attributes and putting them into the $attributes[] array
-        if (count($this->values) > 1) {
-            for ($i = 0; $i < count($this->values); $i++) {
-                $attributes['attribute' . $i] = $this->values[$i];
+        if (count($this->attributes) > 1) {
+            for ($i = 0; $i < count($this->attributes); $i++) {
+                $attributes['attribute' . $i] = $this->attributes[$i];
             }
+            $attributes['attribute_list'] = implode(', ', $this->attributes);
         } else {
-            $attributes['attribute'] = $this->values[0];
+            $attributes['attribute'] = $this->attributes[0];
         }
 
         return $attributes;

@@ -2,6 +2,8 @@
 
 namespace mikevandiepen\utility\Validate;
 
+use mikevandiepen\utility\Validate\Rules\F\AllowedExtensions;
+
 class Validator
 {
     /**
@@ -241,6 +243,26 @@ class Validator
                     case 'less_than_or_equal_to':
                         self::$output[$field] = (new Validation(
                             new Rules\Numeric\LessThanOrEqualTo($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
+
+                    // File validation
+                    case 'allowed_extensions':
+                        self::$output[$field] = (new Validation(
+                            new  Rules\File\AllowedExtensions($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
+
+                    case 'allowed_mime_types':
+                        self::$output[$field] = (new Validation(
+                            new  Rules\File\AllowedMimeType($field, $request[$field], $configuration['parameters']))
+                        )->validate();
+                        break;
+
+                    case 'max_size':
+                    case 'max_file_size':
+                        self::$output[$field] = (new Validation(
+                            new  Rules\File\MaxFileSize($field, $request[$field], $configuration['parameters']))
                         )->validate();
                         break;
 

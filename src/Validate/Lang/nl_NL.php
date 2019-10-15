@@ -59,5 +59,13 @@ return [
     'numeric'                           => 'Veld: {%attr%} moet numerieke waarde hebben!',
     'ip_address'                        => 'Veld: {%attr%} moet een ip-adres zijn!',
     'mac_address'                       => 'Veld: {%attr%} moet een mac-adres zijn!',
+    // File validation
+    'file_max_size'                     => 'Het bestand is te groot! Je bestand mag niet groter zijn dan {%threshold%}. Jouw bestand: {%value%}.',
+    'file_allowed_mime_type'            => 'Incorrect bestandstype! De bestand types die toegestaan zijn {%threshold_list%}. Jouw bestandstype: {%value%}.',
+    'file_allowed_extensions'           => 'Incorrect bestandstype! De bestand types die toegestaan zijn {%threshold_list%}. Jouw bestandstype: {%value%}.',
+    // File validation
+    'file_max_size'                     => 'File too large! The size of your file may not be greater than {%threshold%}. File size: {%value%}.',
+    'file_allowed_mime_type'            => 'Invalid file type! Your file must be of type {%threshold_list%}. Your file type: {%value%}.',
+    'file_allowed_extensions'           => 'Invalid file type! Your file must be of type {%threshold_list%}. Your file type: {%value%}.',
     // Add your custom rules below.
 ];
