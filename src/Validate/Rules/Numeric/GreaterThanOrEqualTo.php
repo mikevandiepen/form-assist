@@ -5,11 +5,10 @@ namespace mikevandiepen\utility\Validate\Rules\Numeric;
 use mikevandiepen\utility\Response;
 use mikevandiepen\utility\Validate\ValidationInterface;
 use mikevandiepen\utility\Validate\Traits\AttributesTrait;
-use mikevandiepen\utility\Validate\Traits\TranslationTrait;
 
 class GreaterThanOrEqualTo implements ValidationInterface
 {
-    use TranslationTrait, AttributesTrait;
+    use AttributesTrait;
 
     /**
      * ValidationRule constructor.

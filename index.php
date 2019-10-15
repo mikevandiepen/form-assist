@@ -30,6 +30,7 @@ $_POST = [
     'email'     => 'mike.vandiepen@hotmail.com'
 ];
 
+// Backend validation
 $clean = Form::sanitize($_POST, [
     'currency'  => 'sql|xss|trim',
     'email'     => 'sql|xss|trim',
@@ -39,3 +40,8 @@ $valid = Form::validate($clean, [
     'currency'  => 'required',
     'email'     => 'required',
 ]);
+
+// Frontend validation / protection
+Form::csrf();       // Opens CSRF protection
+Form::honeypot();   // Creates an honeypot
+Form::reCaptcha();  // Creates recaptcha protection

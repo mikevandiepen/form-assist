@@ -5,11 +5,10 @@ namespace mikevandiepen\utility\Validate\Rules\Date;
 use mikevandiepen\utility\Response;
 use mikevandiepen\utility\Validate\ValidationInterface;
 use mikevandiepen\utility\Validate\Traits\AttributesTrait;
-use mikevandiepen\utility\Validate\Traits\TranslationTrait;
 
 class After implements ValidationInterface
 {
-    use TranslationTrait, AttributesTrait;
+    use AttributesTrait;
 
     /**
      * ValidationRule constructor.

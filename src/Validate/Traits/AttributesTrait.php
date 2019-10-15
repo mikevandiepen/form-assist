@@ -31,14 +31,14 @@ trait AttributesTrait
         // All the results will be stored in here
         $attributes = array();
 
-        // Parsing through all the parameters and putting them into the $attributes[] array
-        if (count($this->parameters) > 1) {
-            for ($i = 0; $i < count($this->parameters); $i++) {
-                $attributes['threshold_' . $i] = $this->parameters[$i];
+        // Parsing through all the attributes and putting them into the $attributes[] array
+        if (count($this->attributes) > 1) {
+            for ($i = 0; $i < count($this->attributes); $i++) {
+                $attributes['attribute' . $i] = $this->attributes[$i];
             }
-            $attributes['threshold_list'] = implode(', ', $this->parameters);
+            $attributes['attribute_list'] = implode(', ', $this->attributes);
         } else {
-            $attributes['threshold'] = $this->parameters[0];
+            $attributes['attribute'] = $this->attributes[0];
         }
 
         // Parsing through all the values and putting them into the $attributes[] array
@@ -51,14 +51,14 @@ trait AttributesTrait
             $attributes['value'] = $this->values[0];
         }
 
-        // Parsing through all the attributes and putting them into the $attributes[] array
-        if (count($this->attributes) > 1) {
-            for ($i = 0; $i < count($this->attributes); $i++) {
-                $attributes['attribute' . $i] = $this->attributes[$i];
+        // Parsing through all the parameters and putting them into the $attributes[] array
+        if (count($this->parameters) > 1) {
+            for ($i = 0; $i < count($this->parameters); $i++) {
+                $attributes['threshold_' . $i] = $this->parameters[$i];
             }
-            $attributes['attribute_list'] = implode(', ', $this->attributes);
+            $attributes['threshold_list'] = implode(', ', $this->parameters);
         } else {
-            $attributes['attribute'] = $this->attributes[0];
+            $attributes['threshold'] = $this->parameters[0];
         }
 
         return $attributes;

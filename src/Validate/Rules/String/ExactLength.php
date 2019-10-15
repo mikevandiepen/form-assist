@@ -5,11 +5,10 @@ namespace mikevandiepen\utility\Validate\Rules\String;
 use mikevandiepen\utility\Response;
 use mikevandiepen\utility\Validate\ValidationInterface;
 use mikevandiepen\utility\Validate\Traits\AttributesTrait;
-use mikevandiepen\utility\Validate\Traits\TranslationTrait;
 
 class ExactLength implements ValidationInterface
 {
-    use TranslationTrait, AttributesTrait;
+    use AttributesTrait;
 
     /**
      * ValidationRule constructor.
