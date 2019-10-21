@@ -2,203 +2,250 @@
 
 namespace mikevandiepen\utility\Validate;
 
+use mikevandiepen\utility\Response;
+use mikevandiepen\utility\Translator\Translator;
+
 class Validator
 {
     /**
-     * All cleaned output will be stored in here
+     * Used for storing the validation setup for the given attribute
      * @var array
      */
-    private static $output = array();
+    private $results = array();
+
+    /**
+     * The response class will be stored in here and used for error handling
+     * @var Response
+     */
+    private $response;
+
+    /**
+     * The translation class will be stored in here and is used for getting the translations
+     * @var Translator
+     */
+    private $translation;
+
+    /**
+     * The $_POST request / data which should be validated is stored in here
+     * @var array
+     */
+    private $request = array();
+
+    /**
+     * The rules with the applied thresholds
+     * @var array
+     */
+    private $config = array();
+
+    /**
+     * Language for the response messages
+     * @var string
+     */
+    private $language   = 'default';
+
+    /**
+     * Validator constructor.
+     *
+     * @param array  $request
+     * @param array  $config
+     * @param string $language
+     */
+    public function __construct(array $request, array $config = array(), string $language = 'default')
+    {
+        // Binding properties
+        $this->request  = $request;
+        $this->config   = $config;
+        $this->language = $language;
+    }
 
     /**
      * Validating all the values and applying all the assigned rules
-     * @param array $request
-     * @param array $config
-     * @return string
+     * @return Validator
      */
-    public function validate(array $request, array $config = array()): string
+    public function validate() : self
     {
-        // Parsing through all the fields
-        foreach ($config as $field => $rules) {
+        $results = null;
 
-            // Casting field to an array
-            $field = array($field);
+        // Instantiating the response and translation classes
+        $this->response     = new Response();
+        $this->translation  = new Translator($this->language);
 
-            // Parsing through the filters and applying them to each field
-            foreach (explode('|', $rules) as $rule) {
+        foreach ($this->config as $field => $rules) {                 // Parsing through all the fields
+            foreach (explode('|', $rules) as $rule) {  // Parsing through the filters and applying them to each field
 
                 // Extracting the parameters
-                $configuration = $this->getParameters($rule);
+                $configuration  = $this->getConfiguration($rule);
+                $inputValues    = is_array($this->request[$field]) ? $this->request[$field] : array($this->request[$field]);
 
                 // Transforming the string to lowercase to be more flexible to the end user
                 switch (strtolower($configuration['rule'])) {
 
                     // Basic validation
                     case 'required':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Basic\Required($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Basic\Required($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     // Type validation
                     case 'num':
                     case 'numeric':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Types\TypeNumeric($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Types\TypeNumeric($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'float':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Types\TypeFloat($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Types\TypeFloat($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'bool':
                     case 'boolean':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Types\TypeBoolean($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Types\TypeBoolean($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'int':
                     case 'integer':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Types\TypeInteger($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Types\TypeInteger($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'null':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Types\TypeNull($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Types\TypeNull($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'string':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Types\TypeString($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Types\TypeString($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'array':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Types\TypeArray($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Types\TypeArray($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     // Date validation
                     case 'before_date':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Date\Before($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Date\Before($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'after_date':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Date\After($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Date\After($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'between_dates':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Date\Between($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Date\Between($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     // String validation
                     case 'starts_with':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\StartsWith($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\StartsWith($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'ends_with':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\EndsWith($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\EndsWith($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'contains':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\Contains($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\Contains($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'regex':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\Regex($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\Regex($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'exact_length':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\ExactLength($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\ExactLength($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'min_length':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\MinLength($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\MinLength($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'max_length':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\MaxLength($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\MaxLength($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     // String types
                     case 'email':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\Email($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\Email($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'url':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\Url($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\Url($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'domain':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\Domain($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\Domain($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'ip':
                     case 'ip_address':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\IpAddress($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\IpAddress($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'mac':
                     case 'mac_address':
-                        self::$output[$field] = (new Validation(
-                            new Rules\String\MacAddress($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\String\MacAddress($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     // Numeric validation
                     case 'between':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\Between($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Numeric\Between($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'min':
                     case 'minimum':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\Min($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Numeric\Min($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'max':
                     case 'maximum':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\Max($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Numeric\Max($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
@@ -206,63 +253,63 @@ class Validator
                     case 'equals':
                     case 'equal_to':
                     case 'equals_to':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\Equal($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Numeric\Equal($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'not_equal':
                     case 'not_equal_to':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\NotEqual($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Numeric\NotEqual($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'gt':
                     case 'greater_than':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\GreaterThan($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Numeric\GreaterThan($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'gte':
                     case 'greater_than_or_equal_to':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\GreaterThanOrEqualTo($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Numeric\GreaterThanOrEqualTo($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'lt':
                     case 'less_than':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\LessThan($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Numeric\LessThan($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'lte':
                     case 'less_than_or_equal_to':
-                        self::$output[$field] = (new Validation(
-                            new Rules\Numeric\LessThanOrEqualTo($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new Rules\Numeric\LessThanOrEqualTo($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     // File validation
                     case 'allowed_extensions':
-                        self::$output[$field] = (new Validation(
-                            new  Rules\File\AllowedExtensions($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new  Rules\File\AllowedExtensions($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'allowed_mime_types':
-                        self::$output[$field] = (new Validation(
-                            new  Rules\File\AllowedMimeType($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new  Rules\File\AllowedMimeTypes($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'max_size':
                     case 'max_file_size':
-                        self::$output[$field] = (new Validation(
-                            new  Rules\File\MaxFileSize($field, $request[$field], $configuration['parameters'])
+                        $result = (new Validation(
+                            new  Rules\File\MaxFileSize($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
@@ -273,39 +320,129 @@ class Validator
                     //  EXAMPLE:
                     //
                     //  case 'rule':
-                    //      self::$output[] = (new Validation(
-                    //          new Rules\RuleType\RuleName($field, $request[$field], $configuration['parameters']))
+                    //      $result = (new Validation(
+                    //          new Rules\RuleType\RuleName($inputValues, $configuration['thresholds']))
                     //      )->validate();
                     //  break;
                     //
                     //--------------------------------------------------------------------------------------------------
+
+                    // Default value is 'false' this is a failsafe to avoid exploitation
+                    default:
+                        $result = false;
+                        break;
                 }
+
+                // Creating a validation config for the current operation
+                $this->results[] = [
+                    'field'         => $field,
+                    'rule'          => $configuration['rule'],
+                    'values'        => $inputValues,
+                    'thresholds'    => $configuration['thresholds'],
+                    'valid'         => $result
+                ];
+
             }
         }
 
-        return json_encode(self::$output, JSON_PRETTY_PRINT);
+        return $this;
     }
 
     /**
-     * This method extracts the parameters from the configuration
-     * Parameters are all the values after an       ( : ).
-     * Multiple parameters are separated by comma   ( , ).
+     * Collecting the responses as JSON string
+     * @return string
+     */
+    public function responseMessages() : string
+    {
+        // Parsing through the results and generating the response messages accordingly
+        foreach ($this->results as $result) {
+            if ($result['valid'] == false) {
+
+                $message    = $this->translation->get($result['rule']);
+                $attributes = $this->getAttributes(
+                    $result['field'],
+                    $result['values'],
+                    $result['thresholds']
+                );
+
+                // Adding delimiters to the attributes
+                $this->response->delimiters('<strong>', '</strong>');
+
+                // The validation returned false; now the error message will be collected
+                $this->response->add($message, $attributes, Response::ERROR);
+            }
+        }
+
+        return $this->response->toJSON();
+    }
+
+    /**
+     * Whether the request passes the validation
+     * @return bool
+     */
+    public function passesValidation() : bool
+    {
+        return count($this->response->toArray()) === 0 ? true: false;
+    }
+
+    /**
+     * This method extracts the thresholds from the configuration
+     * thresholds are all the values after an       ( : ).
+     * Multiple thresholds are separated by comma   ( , ).
      * @param string $rule
      *
      * @return array
      */
-    private function getParameters(string &$rule): array
+    private function getConfiguration(string &$rule): array
     {
-        $parameters = null;
+        $collection = array();
+        $collection['rule'] = strtolower($rule);
 
-        // Checking if there are parameters for the rule
+        // Checking if there are thresholds for the rule
         if (strpos($rule, ':')) {
-            preg_match('\:(.*)', $rule, $parameters);
+            preg_match('\:(.*)', $rule, $thresholds);
+
+            $collection['thresholds'] = $thresholds;
+        } else {
+            $collection['thresholds'] = array();
         }
 
-        return [
-            'rule'          => strtolower($rule),
-            'parameters'    => explode(',', $parameters)
-        ];
+        return $collection;
+    }
+
+    /**
+     * Parsing the attributes for this rule and storing them in a usable array
+     * @param string $attribute
+     * @param array  $values
+     * @param array  $thresholds
+     *
+     * @return array
+     */
+    private function getAttributes(string &$attribute, array &$values, array &$thresholds = array()) : array
+    {
+        // Parsing through all the attributes and putting them into the $attributes[] array
+        $attributes['attribute'] = $attribute;
+
+        // Parsing through all the values and putting them into the $attributes[] array
+        if (count($values) > 1) {
+            for ($i = 0; $i < count($values); $i++) {
+                $attributes['value_' . $i] = $values[$i];
+            }
+            $attributes['value_list'] = implode(', ', $values);
+        } else {
+            $attributes['value'] = is_array($values) ? implode('', $values) : $values;
+        }
+
+        // Parsing through all the parameters and putting them into the $attributes[] array
+        if (count($thresholds) > 1) {
+            for ($i = 0; $i < count($thresholds); $i++) {
+                $attributes['threshold_' . $i] = $thresholds[$i];
+            }
+            $attributes['threshold_list'] = implode(', ', $thresholds);
+        } else {
+            $attributes['threshold'] = is_array($thresholds) ? implode('', $thresholds) : $thresholds;
+        }
+
+        return $attributes;
     }
 }

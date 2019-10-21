@@ -18,6 +18,6 @@
     "php": "^7.1",
     "ext-json": "*",
     "ext-fileinfo": "*",
-    "mikevandiepen/response": "1.1.0"
+    "mikevandiepen/response": "1.2.2"
   }
 }

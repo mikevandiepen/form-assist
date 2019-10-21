@@ -2,43 +2,30 @@
 
 namespace mikevandiepen\utility\Validate\Rules\Numeric;
 
-use mikevandiepen\utility\Response;
+use mikevandiepen\utility\Validate\Rules\Rule;
 use mikevandiepen\utility\Validate\ValidationInterface;
-use mikevandiepen\utility\Validate\Traits\AttributesTrait;
 
-class Between implements ValidationInterface
+class Between extends Rule implements ValidationInterface
 {
-    use AttributesTrait;
-
     /**
-     * ValidationRule constructor.
+     * Required constructor.
      *
-     * @param array $attributes
-     * @param array $values
-     * @param array $parameters
+     * @param array  $values
+     * @param array  $parameters
      */
-    public function __construct(array $attributes, array $values, array $parameters = array())
+    public function __construct(array $values, array $parameters = array())
     {
-        $this->attributes = $attributes;
-        $this->values     = $values;
-        $this->parameters = $parameters;
+        parent::__construct($values, $parameters);
     }
 
     /**
-     * Validating the assigned rule and returning output
-     * @return string
-     * @throws \Exception
+     * Validating the assigned rule and returning whether it passes or not
+     * @return boolean
      */
-    public function validate() : string
+    public function validate() : bool
     {
-        $response = new Response();
-
         // Validating if value is between the two parameters, the order of the parameters doesn't matter.
-        if ( !(($this->values[0] > $this->parameters[0] && $this->values[0] < $this->parameters[1])||
-               ($this->values[0] > $this->parameters[1] && $this->values[0] < $this->parameters[0]))) {
-            $response->add($this->getMessage('numeric_between'), $this->getAttributes(), Response::ERROR, true, ['<strong>', '</strong>']);
-        }
-
-        return $response->get();
+        return ($this->values[0] > $this->parameters[0] && $this->values[0] < $this->parameters[1]) ||
+               ($this->values[0] > $this->parameters[1] && $this->values[0] < $this->parameters[0]);
     }
 }

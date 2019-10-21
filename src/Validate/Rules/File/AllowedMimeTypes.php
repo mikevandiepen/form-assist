@@ -1,14 +1,14 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\Numeric;
+namespace mikevandiepen\utility\Validate\Rules\File;
 
 use mikevandiepen\utility\Validate\Rules\Rule;
 use mikevandiepen\utility\Validate\ValidationInterface;
 
-class LessThan extends Rule implements ValidationInterface
+class AllowedMimeTypes extends Rule implements ValidationInterface
 {
     /**
-     * LessThan constructor.
+     * AllowedMimeTypes constructor.
      *
      * @param array  $values
      * @param array  $parameters
@@ -24,6 +24,6 @@ class LessThan extends Rule implements ValidationInterface
      */
     public function validate() : bool
     {
-        return $this->values[0] < $this->parameters[0];
+        return in_array(mime_content_type($this->values[0]), $this->parameters);
     }
 }

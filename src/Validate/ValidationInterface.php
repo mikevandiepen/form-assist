@@ -7,15 +7,14 @@ interface ValidationInterface
     /**
      * Validation constructor.
      *
-     * @param array  $attributes
      * @param array  $values
      * @param array  $parameters
      */
-    public function __construct(array $attributes, array $values, array $parameters = array());
+    public function __construct(array $values, array $parameters = array());
 
     /**
-     * Validating the assigned rule and returning output
-     * @return string
+     * Validating the assigned rule and returning whether it passes or not
+     * @return boolean
      */
-    public function validate() : string ;
+    public function validate() : bool;
 }

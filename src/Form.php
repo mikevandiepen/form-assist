@@ -8,29 +8,39 @@ use mikevandiepen\utility\Validate\Validator;
 class Form
 {
     /**
-     * The language which should be used for error reporting
-     * @var string
+     * The validator class will be stored in here.
+     * @var Validator
      */
-    private static $language = 'en';
+    private static $validator;
 
     /**
-     * Defining the language for error reporting
+     * @param array  $request
+     * @param array  $config
      * @param string $language
+     *
+     * @return void
      */
-    public static function language(string $language = 'en')
+    public static function validate(array $request, array $config = array(), string $language = 'default') : void
     {
-        self::$language = $language;
+        self::$validator = (new Validator($request, $config, $language))->validate();
     }
 
     /**
-     * @param array $request
-     * @param array $config
-     *
+     * Collecting the validation messages from the Validator class
      * @return string
      */
-    public static function validate(array $request, array $config = array()) : string
+    public static function validationResponse() : string
     {
-        return (new Validator())->validate($request, $config);
+        return self::$validator->responseMessages();
+    }
+
+    /**
+     * Returns whether the requests passes the validation
+     * @return bool
+     */
+    public static function validationPasses() : bool
+    {
+        return self::$validator->passesValidation();
     }
 
     /**
@@ -40,41 +50,8 @@ class Form
      *
      * @return array
      */
-    public static function sanitize(array $request, array $config = array(), $link = null)
+    public static function sanitize(array $request, array $config = array(), $link = null) : array
     {
         return (new Sanitizer())->sanitize($request, $config, $link);
-    }
-
-    /**
-     * Cross site request forgery protection
-     * @return void
-     */
-    public static function csrf() : void
-    {
-        /**
-         * TODO: Implement CSRF protection
-         */
-    }
-
-    /**
-     * Protecting submits from outside providers. As an example bots / scripts
-     * @return void
-     */
-    public static function honeypot()
-    {
-        /**
-         * TODO: Implement a honeypot to trick bots / scripts
-         */
-    }
-
-    /**
-     * Protecting submits from outside providers. As an example bots / scripts
-     * @return void
-     */
-    public static function reCaptcha() : void
-    {
-        /**
-         * TODO: Implement reCaptcha protection
-         */
     }
 }
