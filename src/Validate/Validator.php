@@ -70,7 +70,7 @@ class Validator
         $this->response     = new Response();
         $this->translation  = new Translator($this->language);
 
-        foreach ($this->config as $field => $rules) {                 // Parsing through all the fields
+        foreach ($this->config as $field => $rules) {           // Parsing through all the fields
             foreach (explode('|', $rules) as $rule) {  // Parsing through the filters and applying them to each field
 
                 // Extracting the parameters
@@ -313,6 +313,21 @@ class Validator
                         ))->validate();
                         break;
 
+                    // Email validation
+                    case 'allowed_providers':
+                    case 'allowed_email_providers':
+                        $result = (new Validation(
+                            new  Rules\Email\AllowedProviders($inputValues, $configuration['thresholds'])
+                        ))->validate();
+                        break;
+
+                    case 'blocked_providers':
+                    case 'blocked_email_providers':
+                        $result = (new Validation(
+                            new  Rules\Email\BlockedProviders($inputValues, $configuration['thresholds'])
+                        ))->validate();
+                        break;
+
                     //--------------------------------------------------------------------------------------------------
                     // More validation rules can be added here
                     //--------------------------------------------------------------------------------------------------
@@ -339,24 +354,14 @@ class Validator
                     'rule'          => $configuration['rule'],
                     'values'        => $inputValues,
                     'thresholds'    => $configuration['thresholds'],
-                    'valid'         => $result
+                    'valid'         => $result ? true : false
                 ];
-
             }
         }
 
-        return $this;
-    }
-
-    /**
-     * Collecting the responses as JSON string
-     * @return string
-     */
-    public function responseMessages() : string
-    {
         // Parsing through the results and generating the response messages accordingly
         foreach ($this->results as $result) {
-            if ($result['valid'] == false) {
+            if ($result['valid'] === false || $result['valid'] !== true) {
 
                 $message    = $this->translation->get($result['rule']);
                 $attributes = $this->getAttributes(
@@ -373,6 +378,15 @@ class Validator
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * Collecting the responses as JSON string
+     * @return string
+     */
+    public function responseMessages() : string
+    {
         return $this->response->toJSON();
     }
 
@@ -400,9 +414,28 @@ class Validator
 
         // Checking if there are thresholds for the rule
         if (strpos($rule, ':')) {
-            preg_match('\:(.*)', $rule, $thresholds);
+            preg_match('/:(.*)/', $rule, $thresholds);
 
-            $collection['thresholds'] = $thresholds;
+            // Removing the first index
+            unset($thresholds[0]);
+
+            // Reindexing and defining field type
+            foreach ($thresholds as $threshold) {
+                if (is_string($threshold)) {
+                    $threshold = (string) $threshold;
+                }
+                if (filter_var($threshold, FILTER_VALIDATE_BOOLEAN)) {
+                    $threshold = (boolean) $threshold;
+                }
+                if (filter_var($threshold, FILTER_VALIDATE_INT)) {
+                    $threshold = (int) $threshold;
+                }
+                if (filter_var($threshold, FILTER_VALIDATE_BOOLEAN)) {
+                    $threshold = (float) $threshold;
+                }
+
+                $collection['thresholds'][] = $threshold;
+            }
         } else {
             $collection['thresholds'] = array();
         }

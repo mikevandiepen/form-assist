@@ -24,6 +24,13 @@ class Required extends Rule implements ValidationInterface
      */
     public function validate() : bool
     {
-        return !empty($this->values[0]);
+        $false      = $this->values[0] === false;
+        $intZero    = $this->values[0] === 0;
+        $floatZero  = $this->values[0] === 0.0;
+        $stringZero = $this->values[0] === '0';
+        $notEmpty   = !empty($this->values[0]);
+        $length     = strlen($this->values[0]) !== 0;
+
+        return isset($this->values[0]) && ($false || $intZero || $floatZero || $stringZero || $notEmpty|| $length);
     }
 }

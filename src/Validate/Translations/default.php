@@ -106,4 +106,11 @@ return [
 
     'allowed_mime_type'         => 'Invalid file type! Your file must be of type {%threshold_list%}. Your file type: {%value%}.',
     'allowed_extensions'        => 'Invalid file type! Your file must be of type {%threshold_list%}. Your file type: {%value%}.',
+
+    // Email validation translation
+    'allowed_providers'         => 'Sorry, we only allow email addresses from these provider(s): {%threshold_list%}.',
+    'allowed_email_providers'   => 'Sorry, we only allow email addresses from these provider(s): {%threshold_list%}.',
+
+    'blocked_providers'         => 'Sorry, the email provider {%value%} has been blocked!',
+    'blocked_email_providers'   => 'Sorry, the email provider {%value%} has been blocked!',
 ];

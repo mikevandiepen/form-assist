@@ -24,6 +24,6 @@ class TypeFloat extends Rule implements ValidationInterface
      */
     public function validate() : bool
     {
-        return is_float($this->values[0]);
+        return filter_var($this->values[0], FILTER_VALIDATE_FLOAT);
     }
 }

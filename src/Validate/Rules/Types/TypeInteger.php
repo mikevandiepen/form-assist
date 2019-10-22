@@ -24,6 +24,6 @@ class TypeInteger extends Rule implements ValidationInterface
      */
     public function validate() : bool
     {
-        return is_integer($this->values[0]);
+        return filter_var($this->values[0], FILTER_VALIDATE_INT);
     }
 }

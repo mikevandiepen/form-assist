@@ -1,17 +1,20 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\Types;
+namespace mikevandiepen\utility\Validate\Rules\Email;
 
 use mikevandiepen\utility\Validate\Rules\Rule;
 use mikevandiepen\utility\Validate\ValidationInterface;
+use mikevandiepen\utility\Validate\Traits\ExtractDomainTrait;
 
-class TypeBoolean extends Rule implements ValidationInterface
+class AllowedProviders extends Rule implements ValidationInterface
 {
+    use ExtractDomainTrait;
+
     /**
-     * TypeBoolean constructor.
+     * AllowedProviders constructor.
      *
-     * @param array  $values
-     * @param array  $parameters
+     * @param array $values
+     * @param array $parameters
      */
     public function __construct(array $values, array $parameters = array())
     {
@@ -24,6 +27,6 @@ class TypeBoolean extends Rule implements ValidationInterface
      */
     public function validate() : bool
     {
-        return filter_var($this->values[0], FILTER_VALIDATE_BOOLEAN);
+        return in_array($this->extractDomainFromEmail($this->values[0]), $this->parameters);
     }
 }

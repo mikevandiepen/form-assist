@@ -1,14 +1,17 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\Types;
+namespace mikevandiepen\utility\Validate\Rules\Email;
 
 use mikevandiepen\utility\Validate\Rules\Rule;
 use mikevandiepen\utility\Validate\ValidationInterface;
+use mikevandiepen\utility\Validate\Traits\ExtractDomainTrait;
 
-class TypeBoolean extends Rule implements ValidationInterface
+class BlockedProviders extends Rule implements ValidationInterface
 {
+    use ExtractDomainTrait;
+
     /**
-     * TypeBoolean constructor.
+     * BlockedProviders constructor.
      *
      * @param array  $values
      * @param array  $parameters
@@ -24,6 +27,7 @@ class TypeBoolean extends Rule implements ValidationInterface
      */
     public function validate() : bool
     {
-        return filter_var($this->values[0], FILTER_VALIDATE_BOOLEAN);
+        // Its the same as "AllowedProviders" but then reversed.
+        return !in_array($this->extractDomainFromEmail($this->values[0]), $this->parameters);
     }
 }
