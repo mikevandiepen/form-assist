@@ -449,12 +449,16 @@ class Validator
      */
     private function getAttributes(string &$attribute, array &$values, array &$thresholds = array()) : array
     {
+        // All the attributes will be stored in here.
+        $attributes = array();
+
         // Parsing through all the attributes and putting them into the $attributes[] array
         $attributes['attribute'] = $attribute;
 
         // Parsing through all the values and putting them into the $attributes[] array
-        if (count($values) > 1) {
-            for ($i = 0; $i < count($values); $i++) {
+
+        if (($valuesCount = count($values)) > 1) {
+            for ($i = 0; $i < $valuesCount; $i++) {
                 $attributes['value_' . $i] = $values[$i];
             }
             $attributes['value_list'] = implode(', ', $values);
@@ -463,8 +467,8 @@ class Validator
         }
 
         // Parsing through all the parameters and putting them into the $attributes[] array
-        if (count($thresholds) > 1) {
-            for ($i = 0; $i < count($thresholds); $i++) {
+        if (($thresholdsCount = count($thresholds)) > 1) {
+            for ($i = 0; $i < $thresholdsCount; $i++) {
                 $attributes['threshold_' . $i] = $thresholds[$i];
             }
             $attributes['threshold_list'] = implode(', ', $thresholds);
