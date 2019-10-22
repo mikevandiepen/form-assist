@@ -2,6 +2,7 @@
 
 namespace mikevandiepen\utility\Sanitize\Filters;
 
+use mysqli;
 use mikevandiepen\utility\Sanitize\SanitizationInterface;
 
 class Slugify extends Filter implements SanitizationInterface
@@ -10,7 +11,7 @@ class Slugify extends Filter implements SanitizationInterface
      * SanitizationInterface constructor.
      *
      * @param             $input
-     * @param null|string $link
+     * @param null|mysqli $link
      */
     public function __construct($input, $link = null)
     {

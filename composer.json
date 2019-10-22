@@ -12,13 +12,16 @@
   ],
   "version": "1.0.0",
   "autoload": {
-    "psr-4": {"Advanced-form-helper\\": "/src"}
+    "psr-4": {
+        "Advanced-form-helper\\": "/src",
+    }
   },
   "require": {
     "php": "^7.1",
     "ext-json": "*",
+    "ext-mysqli": "*",
     "ext-fileinfo": "*",
-    "mikevandiepen/response": "1.2.2",
-    "ext-mysqli": "*"
+    "phpunit/phpunit": "^8",
+    "mikevandiepen/response": "1.2.2"
   }
 }
