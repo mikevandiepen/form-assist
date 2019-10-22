@@ -1,22 +1,26 @@
 ### Installation
 
 ###### Github
-````shell script
+
+```shell script
 $ git clone https://mikevandiepen@bitbucket.org/mikevandiepen/advanced-form-helper.git
-````
+```
 
 ###### Composer
+
 ```shell script
 $ composer install mikevandiepen/advanced-form-helper
 ```
 
 #### Sanitization
+
 ```php
-Form::sanitize($_POST, [
+<?php 
+mikevandiepen\utility\Form::sanitize($_POST, [
     'name'  => 'sql|xss|trim',
     'email' => 'sql|xss|trim|email',
 ], $mysqli_connection /** optional, we recommend using prepared statements */);
-```
+``` 
 
 ### Sanitization filters
 | filter | functionality | 
