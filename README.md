@@ -10,7 +10,6 @@ $ git clone https://mikevandiepen@bitbucket.org/mikevandiepen/advanced-form-help
 $ composer install mikevandiepen/advanced-form-helper
 ```
 
-
 #### Sanitization
 ```php
 Form::sanitize($_POST, [
@@ -20,37 +19,27 @@ Form::sanitize($_POST, [
 ```
 
 ### Sanitization filters
-* `sql`
-* `xss`
-* `email`
-* `url`
-* `numbers`
-* `float`
-* `json_encode`
-* `encode_json`
-* `json_decode`
-* `decode_json`
-* `trim`
-* `trim_all`
-* `ltrim`
-* `left_trim`
-* `trim_left`
-* `rtrim`
-* `right_trim`
-* `trim_right`
-* `upper`
-* `uppercase`
-* `lower`
-* `lowercase`
-* `slug`
-* `slugify`
-* `to_slug`
-* `tags`
-* `strip_tags`
+| filter | functionality | 
+|---:|:---|
+|`sql` | | 
+|`xss` | | 
+|`email` | | 
+|`url` | | 
+|`numbers` | | 
+|`float` | | 
+|`json_encode` / `encode_json` | | 
+|`json_decode` / `decode_json` | | 
+|`trim` / `trim_all` | | 
+|`ltrim` / `left_trim` / `trim_left` | | 
+|`rtrim` / `right_trim` / `trim_right`| | 
+|`upper` / `uppercase` | | 
+|`lower` / `lowercase`| | 
+|`slug` / `slugify` / `to_slug` | | 
+|`tags` / `strip_tags` | | 
 
 ### Validation rules
 | rule | functionality | 
-|:---|:---|
+|---:|:---|
 | `required` | Whether the field is set and is not empty.| 
 | `num` / `numeric` | Whether the value of the field is **numeric**. | 
 | `float` | Whether the value of the field is a **float**. | 
