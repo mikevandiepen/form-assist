@@ -64,8 +64,6 @@ class Validator
      */
     public function validate() : self
     {
-        $results = null;
-
         // Instantiating the response and translation classes
         $this->response     = new Response();
         $this->translation  = new Translator($this->language);
@@ -463,7 +461,7 @@ class Validator
             }
             $attributes['value_list'] = implode(', ', $values);
         } else {
-            $attributes['value'] = is_array($values) ? implode('', $values) : $values;
+            $attributes['value'] = implode('', $values);
         }
 
         // Parsing through all the parameters and putting them into the $attributes[] array
@@ -473,7 +471,7 @@ class Validator
             }
             $attributes['threshold_list'] = implode(', ', $thresholds);
         } else {
-            $attributes['threshold'] = is_array($thresholds) ? implode('', $thresholds) : $thresholds;
+            $attributes['threshold'] = implode('', $thresholds);
         }
 
         return $attributes;
