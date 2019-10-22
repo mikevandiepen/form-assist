@@ -183,12 +183,14 @@ class Validator
                         ))->validate();
                         break;
 
+                    case 'minlen':
                     case 'min_length':
                         $result = (new Validation(
                             new Rules\String\MinLength($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
+                    case 'maxlen':
                     case 'max_length':
                         $result = (new Validation(
                             new Rules\String\MaxLength($inputValues, $configuration['thresholds'])

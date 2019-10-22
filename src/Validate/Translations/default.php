@@ -52,8 +52,12 @@ return [
     'date_between'              => 'Field: {%attribute%} must be between {%threshold1%} and {%threshold2%}. Your value: {%value%}.',
 
     // String validation translations
+    'minlen'                    => 'Field: {%attribute%} must have a minimum length of {%threshold%}. Length of your string: {%value%}.',
     'min_length'                => 'Field: {%attribute%} must have a minimum length of {%threshold%}. Length of your string: {%value%}.',
+
+    'maxlen'                => 'Field: {%attribute%} must have a maximum length of {%threshold%}. Length of your string: {%value%}.',
     'max_length'                => 'Field: {%attribute%} must have a maximum length of {%threshold%}. Length of your string: {%value%}.',
+
     'exact_length'              => 'Field: {%attribute%} must have an exact length of {%threshold%}. Length of your string: {%value%}.',
     'starts_with'               => 'Field: {%attribute%} must start with {%threshold%}. Your value: {%value%}.',
     'ends_with'                 => 'Field: {%attribute%} must ends with {%threshold%}. Your value: {%value%}.',

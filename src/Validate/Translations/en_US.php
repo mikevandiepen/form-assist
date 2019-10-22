@@ -52,8 +52,12 @@ return [
     'date_between'              => 'Field: {%attribute%} must be between {%threshold1%} and {%threshold2%}. Your value: {%value%}.',
 
     // String validation translations
+    'minlen'                    => 'Field: {%attribute%} must have a minimum length of {%threshold%}. Length of your string: {%value%}.',
     'min_length'                => 'Field: {%attribute%} must have a minimum length of {%threshold%}. Length of your string: {%value%}.',
+
+    'maxlen'                => 'Field: {%attribute%} must have a maximum length of {%threshold%}. Length of your string: {%value%}.',
     'max_length'                => 'Field: {%attribute%} must have a maximum length of {%threshold%}. Length of your string: {%value%}.',
+
     'exact_length'              => 'Field: {%attribute%} must have an exact length of {%threshold%}. Length of your string: {%value%}.',
     'starts_with'               => 'Field: {%attribute%} must start with {%threshold%}. Your value: {%value%}.',
     'ends_with'                 => 'Field: {%attribute%} must ends with {%threshold%}. Your value: {%value%}.',
@@ -106,4 +110,11 @@ return [
 
     'allowed_mime_type'         => 'Invalid file type! Your file must be of type {%threshold_list%}. Your file type: {%value%}.',
     'allowed_extensions'        => 'Invalid file type! Your file must be of type {%threshold_list%}. Your file type: {%value%}.',
+
+    // Email validation translation
+    'allowed_providers'         => 'Sorry, we only allow email addresses from these provider(s): {%threshold_list%}.',
+    'allowed_email_providers'   => 'Sorry, we only allow email addresses from these provider(s): {%threshold_list%}.',
+
+    'blocked_providers'         => 'Sorry, the email provider {%value%} has been blocked!',
+    'blocked_email_providers'   => 'Sorry, the email provider {%value%} has been blocked!',
 ];

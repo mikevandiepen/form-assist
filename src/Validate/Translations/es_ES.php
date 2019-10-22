@@ -51,8 +51,12 @@ return [
     'date_between'              => '',
 
     // String validation translations
+    'minlen'                => '',
     'min_length'                => '',
+
+    'maxlen'                => '',
     'max_length'                => '',
+
     'exact_length'              => '',
     'starts_with'               => '',
     'ends_with'                 => '',
@@ -105,4 +109,11 @@ return [
 
     'allowed_mime_type'         => '',
     'allowed_extensions'        => '',
+
+    // Email validation translation
+    'allowed_providers'         => '',
+    'allowed_email_providers'   => '',
+
+    'blocked_providers'         => '',
+    'blocked_email_providers'   => '',
 ];
