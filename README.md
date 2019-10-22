@@ -27,15 +27,15 @@ Form::sanitize($_POST, [
 |`url` | | 
 |`numbers` | | 
 |`float` | | 
-|`json_encode` / `encode_json` | | 
-|`json_decode` / `decode_json` | | 
-|`trim` / `trim_all` | | 
-|`ltrim` / `left_trim` / `trim_left` | | 
-|`rtrim` / `right_trim` / `trim_right`| | 
-|`upper` / `uppercase` | | 
-|`lower` / `lowercase`| | 
-|`slug` / `slugify` / `to_slug` | | 
-|`tags` / `strip_tags` | | 
+|`json_encode` / `encode_json` | Encodes the value of the field to json format. | 
+|`json_decode` / `decode_json` | Decodes the value of the field from json format to array. | 
+|`trim` / `trim_all` | Trims the value of the field on both sides from spaces. | 
+|`ltrim` / `left_trim` / `trim_left` | Trims the value of the field on the left side from spaces. | 
+|`rtrim` / `right_trim` / `trim_right`| Trims the value of the field on the right side from spaces. | 
+|`upper` / `uppercase` | Transforms the value of the field to uppercase. | 
+|`lower` / `lowercase`| Transforms the value of the field to lowercase. | 
+|`slug` / `slugify` / `to_slug` | Transforms the value of the field to a slug. | 
+|`tags` / `strip_tags` | Strips all the HTML tags from the value of the field. | 
 
 ### Validation rules
 | rule | functionality | 
