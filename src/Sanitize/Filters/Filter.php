@@ -2,6 +2,8 @@
 
 namespace mikevandiepen\utility\Sanitize\Filters;
 
+use mysqli;
+
 class Filter
 {
     /**
@@ -18,9 +20,8 @@ class Filter
 
     /**
      * SanitizationInterface constructor.
-     *
      * @param             $input
-     * @param null|string $link
+     * @param null|mysqli $link
      */
     protected function __construct($input, $link = null)
     {

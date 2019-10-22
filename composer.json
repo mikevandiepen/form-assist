@@ -18,6 +18,7 @@
     "php": "^7.1",
     "ext-json": "*",
     "ext-fileinfo": "*",
-    "mikevandiepen/response": "1.2.2"
+    "mikevandiepen/response": "1.2.2",
+    "ext-mysqli": "*"
   }
 }

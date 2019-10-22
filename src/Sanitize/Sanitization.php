@@ -2,6 +2,8 @@
 
 namespace mikevandiepen\utility\Sanitize;
 
+use mysqli;
+
 class Sanitization
 {
     /**
@@ -11,7 +13,7 @@ class Sanitization
 
     /**
      * The link for the mysqli connection
-     * @var
+     * @var null|mysqli
      */
     private $link;
 
