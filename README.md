@@ -59,25 +59,25 @@ mikevandiepen\utility\Form::sanitize($_POST, [
 | `ends_with` | Whether the value of the field ends with the threshold substring. | 
 | `contains` | Whether the value of the field contains the threshold substring. | 
 | `regex` | Whether the value of the field matches the regular expression threshold pattern.  | 
-| `exact_length` |  | 
-| `minlen` / `min_length` |  | 
-| `maxlen` / `max_length` |  | 
-| `email` |  | 
-| `url` |  | 
-| `domain` |  | 
-| `ip` / `ip_address` |  | 
-| `mac` / `mac_address` |  | 
-| `between` |  | 
-| `min` / `minimum` |  | 
-| `max` / `maximum` |  | 
-| `equal` / `equals` / `equal_to` / `equals_to` |  | 
-| `not_equal` / `not_equal_to` |  |  
-| `gt` / `greater_than` |  | 
-| `gte` / `greater_than_or_equal_to` |  | 
-| `lt` / `less_than` |  | 
-| `lte` / `less_than_or_equal_to` |  | 
-| `allowed_extensions` |  | 
-| `allowed_mime_types` |  | 
-| `max_size` / `max_file_size` |  | 
-| `allowed_providers` / `allowed_email_providers` |  | 
-| `blocked_providers` / `blocked_email_providers` |  |  
+| `exact_length` | Whether the value of the field matches the exact threshold length. | 
+| `minlen` / `min_length` | Whether the value of the field has the minimal required threshold length. | 
+| `maxlen` / `max_length` | Whether the value of the field has less then the maximal required threshold length. | 
+| `email` | Whether the value of the field is an email. | 
+| `url` | Whether the value of the field is an url.| 
+| `domain` | Whether the value of the field is a domain name.| 
+| `ip` / `ip_address` | Whether the value of the field is an IP address. | 
+| `mac` / `mac_address` | Whether the value of the field is an MAC address | 
+| `between` | Whether the value of the field between two values. | 
+| `min` / `minimum` | Whether the value of the field has the minimum worth of the threshold. | 
+| `max` / `maximum` | Whether the value of the field has less than the maximum worth of the threshold.| 
+| `equal` / `equals` / `equal_to` / `equals_to` | Whether the value of the field equals the worth of the threshold. | 
+| `not_equal` / `not_equal_to` | Whether the value of the field does not equal the worth of the threshold. |  
+| `gt` / `greater_than` | Whether the value of the field is greater than the threshold. | 
+| `gte` / `greater_than_or_equal_to` | Whether the value of the field is greater or equal to the threshold. | 
+| `lt` / `less_than` | Whether the value of the field is lesser than the threshold. | 
+| `lte` / `less_than_or_equal_to` | Whether the value of the field is lesser or equal to the threshold. | 
+| `allowed_extensions` | Whether the file has an allowed extension. | 
+| `allowed_mime_types` | Whether the file has an allowed mime-type. | 
+| `max_size` / `max_file_size` | Whether the file is lesser or equal to the maximal file size. | 
+| `allowed_providers` / `allowed_email_providers` | Whether the domain of the email address is from an allowed / whitelisted provider. | 
+| `blocked_providers` / `blocked_email_providers` | Whether the domain of the email address is from an blocked / blacklisted provider. |  
