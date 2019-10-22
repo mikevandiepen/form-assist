@@ -1,25 +1,43 @@
 ### Installation
 
-###### Github
-
+###### Manually using GIT
 ```shell script
 $ git clone https://mikevandiepen@bitbucket.org/mikevandiepen/advanced-form-helper.git
 ```
 
-###### Composer
 
+###### Via composer
 ```shell script
 $ composer install mikevandiepen/advanced-form-helper
 ```
+
 
 #### Sanitization
 
 ```php
 <?php 
-mikevandiepen\utility\Form::sanitize($_POST, [
+$clean = mikevandiepen\utility\Form::sanitize($_POST, [
+    'name'  => 'required|string|min_length:6',
+    'email' => 'required|email|allowed_providers:hotmail.com,outlook.com,live.com,gmail.com,yourwebsite.tld',
+], $mysqli_connection);
+/** 
+ * @var $mysqli_connection - is optional, we recommend using prepared statements 
+ * There is fallback code in place, yet it is not as optimal and secure as de mysql ways.
+ */
+``` 
+
+#### Validation
+
+```php
+<?php 
+mikevandiepen\utility\Form::validate($clean, [
     'name'  => 'sql|xss|trim',
     'email' => 'sql|xss|trim|email',
-], $mysqli_connection /** optional, we recommend using prepared statements */);
+], $language);
+/** 
+ * @var  $language - is optional and defaults to english 
+ * @path'./src/Validate/Translations/default.php'
+ */
 ``` 
 
 ### Sanitization filters
