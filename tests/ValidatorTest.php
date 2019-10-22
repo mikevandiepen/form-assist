@@ -2,7 +2,7 @@
 
 namespace mikevandiepen\utility\tests;
 
-class ValidatorTest
+final class ValidatorTest
 {
 
 }
