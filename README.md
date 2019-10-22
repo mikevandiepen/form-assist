@@ -1,4 +1,8 @@
+### Disclaimer
+This package is not fully tested and still in beta mode. It is also not available through composer yet.
+
 ### Installation
+There are several ways of installing this package, we recommend the most (Safe) way which is through composer.
 
 ###### Manually using GIT
 ```shell script
@@ -17,8 +21,8 @@ $ composer install mikevandiepen/advanced-form-helper
 ```php
 <?php 
 $clean = mikevandiepen\utility\Form::sanitize($_POST, [
-    'name'  => 'required|string|min_length:6',
-    'email' => 'required|email|allowed_providers:hotmail.com,outlook.com,live.com,gmail.com,yourwebsite.tld',
+       'name'  => 'sql|xss|trim',
+       'email' => 'sql|xss|trim|email',
 ], $mysqli_connection);
 /** 
  * @var $mysqli_connection - is optional, we recommend using prepared statements 
@@ -31,8 +35,8 @@ $clean = mikevandiepen\utility\Form::sanitize($_POST, [
 ```php
 <?php 
 mikevandiepen\utility\Form::validate($clean, [
-    'name'  => 'sql|xss|trim',
-    'email' => 'sql|xss|trim|email',
+    'name'  => 'required|string|min_length:6',
+    'email' => 'required|email|allowed_providers:hotmail.com,outlook.com,live.com,gmail.com,yourwebsite.tld',
 ], $language);
 /** 
  * @var  $language - is optional and defaults to english 
