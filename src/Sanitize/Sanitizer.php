@@ -152,7 +152,7 @@ class Sanitizer
                     //  EXAMPLE:
                     //
                     //  case 'filter':
-                    //      self::$output[] = (new Sanitization(
+                    //      self::$output[$field] = (new Sanitization(
                     //          new Filter($request[$field]))
                     //      )->sanitize();
                     //  break;

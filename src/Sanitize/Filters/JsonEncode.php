@@ -4,30 +4,17 @@ namespace mikevandiepen\utility\Sanitize\Filters;
 
 use mikevandiepen\utility\Sanitize\SanitizationInterface;
 
-class JsonEncode implements SanitizationInterface
+class JsonEncode extends Filter implements SanitizationInterface
 {
-    /**
-     * The input for sanitization
-     * @var string
-     */
-    protected $input;
-
-    /**
-     * The link for the mysqli connection
-     * @var
-     */
-    private $link;
-
     /**
      * SanitizationInterface constructor.
      *
-     * @param      $input
-     * @param null $link
+     * @param             $input
+     * @param null|string $link
      */
     public function __construct($input, $link = null)
     {
-        $this->input = $input;
-        $this->link = $link;
+        parent::__construct($input, $link);
     }
 
     /**
