@@ -2,6 +2,7 @@
 
 namespace mikevandiepen\utility;
 
+use mysqli;
 use mikevandiepen\utility\Sanitize\Sanitizer;
 use mikevandiepen\utility\Validate\Validator;
 
@@ -44,9 +45,9 @@ class Form
     }
 
     /**
-     * @param array $request
-     * @param array $config
-     * @param null  $link
+     * @param array       $request
+     * @param array       $config
+     * @param null|mysqli $link
      *
      * @return array
      */
