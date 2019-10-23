@@ -2,9 +2,10 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
+[![Code Intelligence Status](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![Build Status](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/badges/build.png?b=master)](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/badges/coverage.png?b=master)](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/?branch=master)
 [![Total Downloads][ico-downloads]][link-downloads]
 
 ## Structure
