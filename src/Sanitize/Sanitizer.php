@@ -53,7 +53,7 @@ class Sanitizer
                         )->sanitize();
                         break;
 
-                    case 'numbers':
+                    case 'numeric':
                         self::$output[$field] = (string) (new Sanitization(
                             new Filters\SanitizeNumeric($request[$field]))
                         )->sanitize();

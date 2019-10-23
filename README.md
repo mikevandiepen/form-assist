@@ -67,7 +67,7 @@ mikevandiepen\utility\Form::validate($clean, [
 |`xss` | | 
 |`email` | | 
 |`url` | | 
-|`numbers` | | 
+|`numeric` | | 
 |`float` | | 
 |`json_encode` / `encode_json` | Encodes the value of the field to json format. | 
 |`json_decode` / `decode_json` | Decodes the value of the field from json format to array. | 

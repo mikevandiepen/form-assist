@@ -2,7 +2,9 @@
 
 namespace mikevandiepen\utility\tests;
 
-final class SanitizerTest
+use PHPUnit\Framework\TestCase;
+
+final class SanitizerTest extends TestCase
 {
 
 }
