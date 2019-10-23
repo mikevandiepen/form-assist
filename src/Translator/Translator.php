@@ -33,7 +33,7 @@ class Translator extends TranslationHelper
      * Getting the translation
      * @param string $translation
      *
-     * @return Translation
+     * @return Translator
      */
     public function get(string $translation) : string
     {
