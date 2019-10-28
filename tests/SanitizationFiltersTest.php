@@ -4,7 +4,7 @@ namespace mikevandiepen\utility\tests;
 
 use PHPUnit\Framework\TestCase;
 
-class SanitizationFiltersTest extends TestCase
+final class SanitizationFiltersTest extends TestCase
 {
     public function testSanitizationFilterSql()
     {

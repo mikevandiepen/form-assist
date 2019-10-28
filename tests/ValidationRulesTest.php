@@ -4,7 +4,7 @@ namespace mikevandiepen\utility\tests;
 
 use PHPUnit\Framework\TestCase;
 
-class ValidationRulesTest extends TestCase
+final class ValidationRulesTest extends TestCase
 {
     public function testValidationRuleRequired()
     {
