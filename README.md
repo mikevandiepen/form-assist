@@ -8,20 +8,8 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/?branch=master)
 [![Total Downloads][ico-downloads]][link-downloads]
 
-## Structure
-
-If any of the following are applicable to your project, then the directory structure should follow industry best practices by being named the following.
-
-```
-bin/        
-build/
-docs/
-config/
-src/
-tests/
-vendor/
-```
-
+## Be aware!
+Not everything has been tested yet, use on own risk.
 
 ## Install
 
@@ -64,12 +52,12 @@ mikevandiepen\utility\Form::validate($clean, [
 ### Sanitization filters
 | filter | functionality | 
 |---:|:---|
-|`sql` | | 
-|`xss` | | 
-|`email` | | 
-|`url` | | 
-|`numeric` | | 
-|`float` | | 
+|`sql` | Escapes the string against SQL injections. ***`(We still recommend to use prepared statements)`***  | 
+|`xss` | Escapes the string against cross site scripting. | 
+|`email` | Sanitizes the email and handles the special characters. | 
+|`url` | Sanitizes the URL and handles the special characters. | 
+|`numeric` | Sanitizes the numeric characters and makes sure that it is safe for use. | 
+|`float` | Sanitizes the float characters and makes sure that it is safe for use. | 
 |`json_encode` / `encode_json` | Encodes the value of the field to json format. | 
 |`json_decode` / `decode_json` | Decodes the value of the field from json format to array. | 
 |`trim` / `trim_all` | Trims the value of the field on both sides from spaces. | 

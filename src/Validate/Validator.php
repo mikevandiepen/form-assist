@@ -41,7 +41,7 @@ class Validator
      * Language for the response messages
      * @var string
      */
-    private $language   = 'default';
+    private $language = 'default';
 
     /**
      * Validator constructor.
