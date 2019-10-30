@@ -5,7 +5,7 @@ namespace mikevandiepen\utility\Validate\Rules\String;
 use mikevandiepen\utility\Validate\Rules\Rule;
 use mikevandiepen\utility\Validate\ValidationInterface;
 
-class IpAddress extends Rule implements ValidationInterface
+class IPAddress extends Rule implements ValidationInterface
 {
     /**
      * IpAddress constructor.

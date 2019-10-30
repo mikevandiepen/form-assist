@@ -5,7 +5,7 @@ namespace mikevandiepen\utility\Validate\Rules\String;
 use mikevandiepen\utility\Validate\Rules\Rule;
 use mikevandiepen\utility\Validate\ValidationInterface;
 
-class MacAddress extends Rule implements ValidationInterface
+class MACAddress extends Rule implements ValidationInterface
 {
     /**
      * MacAddress constructor.

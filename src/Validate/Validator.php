@@ -217,14 +217,28 @@ class Validator
                     case 'ip':
                     case 'ip_address':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\IpAddress($inputValues, $configuration['thresholds'])
+                            new Rules\String\IPAddress($inputValues, $configuration['thresholds'])
+                        ))->validate();
+                        break;
+
+                    case 'ipv4':
+                    case 'ipv4_address':
+                        $this->results['valid'][] = (boolean) (new Validation(
+                            new Rules\String\IPV4Address($inputValues, $configuration['thresholds'])
+                        ))->validate();
+                        break;
+
+                    case 'ipv6':
+                    case 'ipv6_address':
+                        $this->results['valid'][] = (boolean) (new Validation(
+                            new Rules\String\IPV6Address($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'mac':
                     case 'mac_address':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\MacAddress($inputValues, $configuration['thresholds'])
+                            new Rules\String\MACAddress($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
