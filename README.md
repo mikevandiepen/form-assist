@@ -135,6 +135,9 @@ mikevandiepen\utility\Form::validate($clean, [
 - **Code inteligence**
     - Implement more methods to validate code coverage
     - Add translations for the newer rules
+- **General**
+    - Make code more accessible for older versions of PHP
+    - Work on implementation for several library's (Symphony, Laravel, Yii, CackePHP, etc..)
 
 ## Inspiration
 This library took some heavy inspiration from some other libraries, I just wanted an easier and more
