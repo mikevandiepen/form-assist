@@ -109,6 +109,31 @@ mikevandiepen\utility\Form::validate($clean, [
 | `allowed_providers` / `allowed_email_providers` | Whether the domain of the email address is from an allowed / whitelisted provider. | 
 | `blocked_providers` / `blocked_email_providers` | Whether the domain of the email address is from an blocked / blacklisted provider. |  
 
+## TODO:
+- **New validation rules**
+    - credit_card
+    - iban
+    - address (Location)
+    - datetime format / pattern
+- **Edit validation rules**
+    - email (Ping the domain to check whether it is a real domain.)
+- **Project changes**
+    - Add a method where you can manually overwrite response translations
+    - Create a facade with a different and lightweight approach for alternative validation
+- **Translations**
+    - Dutch translation
+    - Swedish translation
+    - German translation
+
+## Inspiration
+This library took some heavy inspiration from some other libraries, I just wanted an easier and more
+structured way to validate my `$_POST[]`. Since some other library's / packages weren't that structured and just stored 
+all the rules / filters in one file I decided to build my own.
+
+**Special thanks to:**
+- https://github.com/Wixel/GUMP
+- https://github.com/davidecesarano/Validation
+
 
 ## Change log
 
