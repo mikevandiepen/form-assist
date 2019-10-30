@@ -4,6 +4,7 @@ namespace mikevandiepen\utility\Validate;
 
 use mikevandiepen\utility\Response;
 use mikevandiepen\utility\Translator\Translator;
+use mikevandiepen\utility\Translator\Translation;
 
 class Validator
 {
@@ -66,7 +67,7 @@ class Validator
     {
         // Instantiating the response and translation classes
         $this->response     = new Response();
-        $this->translation  = new Translator($this->language);
+        $this->translation  = new Translation();
 
         foreach ($this->config as $field => $rules) {           // Parsing through all the fields
             foreach (explode('|', $rules) as $rule) {  // Parsing through the filters and applying them to each field
@@ -387,7 +388,7 @@ class Validator
         foreach ($this->results as $result) {
             if ($result['valid'] === false || $result['valid'] !== true) {
 
-                $message    = $this->translation->get($result['rule']);
+                $message    = $this->translation->get($result['rule'], $this->language);
                 $attributes = $this->getAttributes(
                     $result['field'],
                     $result['values'],

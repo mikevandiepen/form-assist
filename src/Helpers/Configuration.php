@@ -1,9 +1,14 @@
 <?php
 
-namespace mikevandiepen\utility\Traits;
+namespace mikevandiepen\utility\Helpers;
 
-trait ConfigTrait
+class Configuration
 {
+    /**
+     * Abbreviation for DirectorySeparator
+     */
+    const DS = DIRECTORY_SEPARATOR;
+
     /**
      * The name / location of the package directory
      * @var string
@@ -23,28 +28,16 @@ trait ConfigTrait
     private $targetFile;
 
     /**
-     * ConfigTrait constructor.
+     * Config constructor.
      * Assigning basic properties
-     *
+     * @param string $targetFile
      * @param string $configDir
      */
-    public function __construct(string $configDir = 'config')
+    public function __construct(string $targetFile, string $configDir = 'config')
     {
-        $this->packageDir   = dirname(__DIR__, 2);
+        $this->targetFile   = $targetFile;
         $this->configDir    = $configDir;
-    }
-
-    /**
-     * Which config file should be opened
-     * @param string $targetFile
-     *
-     * @return ConfigTrait
-     */
-    public function config(string $targetFile) : self
-    {
-        $this->targetFile = $targetFile;
-
-        return $this;
+        $this->packageDir   = dirname(__DIR__, 2);
     }
 
     /**
@@ -53,6 +46,6 @@ trait ConfigTrait
      */
     public function get() : array
     {
-        return [];
+        return include($this->packageDir . self::DS . $this->configDir . self::DS . $this->targetFile . '.php');
     }
 }
