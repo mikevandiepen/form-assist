@@ -5,10 +5,10 @@ namespace mikevandiepen\utility\Validate\Rules\String;
 use mikevandiepen\utility\Validate\Rules\Rule;
 use mikevandiepen\utility\Validate\ValidationInterface;
 
-class IPV6Address extends Rule implements ValidationInterface
+class MacAddress extends Rule implements ValidationInterface
 {
     /**
-     * IpAddress constructor.
+     * MacAddress constructor.
      *
      * @param array  $values
      * @param array  $parameters
@@ -24,6 +24,6 @@ class IPV6Address extends Rule implements ValidationInterface
      */
     public function validate() : bool
     {
-        return filter_var($this->values[0], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
+        return filter_var($this->values[0], FILTER_VALIDATE_MAC);
     }
 }

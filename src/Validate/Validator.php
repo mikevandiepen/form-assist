@@ -134,19 +134,19 @@ class Validator
                     // Date validation
                     case 'before_date':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Date\Before($inputValues, $configuration['thresholds'])
+                            new Rules\Date\DateBefore($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'after_date':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Date\After($inputValues, $configuration['thresholds'])
+                            new Rules\Date\DateAfter($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'between_dates':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Date\Between($inputValues, $configuration['thresholds'])
+                            new Rules\Date\DateBetween($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
@@ -226,21 +226,21 @@ class Validator
                     case 'ipv4':
                     case 'ipv4_address':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\IPV4Address($inputValues, $configuration['thresholds'])
+                            new Rules\String\IPv4Address($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'ipv6':
                     case 'ipv6_address':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\IPV6Address($inputValues, $configuration['thresholds'])
+                            new Rules\String\IPv6Address($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'mac':
                     case 'mac_address':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\MACAddress($inputValues, $configuration['thresholds'])
+                            new Rules\String\MacAddress($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 

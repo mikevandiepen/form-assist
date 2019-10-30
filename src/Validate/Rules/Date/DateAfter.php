@@ -1,14 +1,14 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\String;
+namespace mikevandiepen\utility\Validate\Rules\Date;
 
 use mikevandiepen\utility\Validate\Rules\Rule;
 use mikevandiepen\utility\Validate\ValidationInterface;
 
-class MACAddress extends Rule implements ValidationInterface
+class DateAfter extends Rule implements ValidationInterface
 {
     /**
-     * MacAddress constructor.
+     * After constructor.
      *
      * @param array  $values
      * @param array  $parameters
@@ -24,6 +24,6 @@ class MACAddress extends Rule implements ValidationInterface
      */
     public function validate() : bool
     {
-        return filter_var($this->values[0], FILTER_VALIDATE_MAC);
+        return !($this->values[0] > $this->parameters[0]);
     }
 }

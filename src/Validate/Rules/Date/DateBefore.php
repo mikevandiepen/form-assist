@@ -5,10 +5,10 @@ namespace mikevandiepen\utility\Validate\Rules\Date;
 use mikevandiepen\utility\Validate\Rules\Rule;
 use mikevandiepen\utility\Validate\ValidationInterface;
 
-class Between extends Rule implements ValidationInterface
+class DateBefore extends Rule implements ValidationInterface
 {
     /**
-     * Between constructor.
+     * Before constructor.
      *
      * @param array  $values
      * @param array  $parameters
@@ -24,8 +24,6 @@ class Between extends Rule implements ValidationInterface
      */
     public function validate() : bool
     {
-        // Validating if value is between the two parameters, the order of the parameters doesn't matter.
-        return ($this->values[0] > $this->parameters[0] && $this->values[0] < $this->parameters[1]) ||
-               ($this->values[0] > $this->parameters[1] && $this->values[0] < $this->parameters[0]);
+        return !($this->values[0] < $this->parameters[0]);
     }
 }

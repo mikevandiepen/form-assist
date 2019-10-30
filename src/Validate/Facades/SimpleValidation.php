@@ -143,19 +143,19 @@ class SimpleValidation
             // Date validation
             case 'before_date':
                 $this->result = (boolean) (new Validation(
-                    new \mikevandiepen\utility\Validate\Rules\Date\Before($this->values, $this->thresholds)
+                    new \mikevandiepen\utility\Validate\Rules\Date\DateBefore($this->values, $this->thresholds)
                 ))->validate();
                 break;
 
             case 'after_date':
                 $this->result = (boolean) (new Validation(
-                    new \mikevandiepen\utility\Validate\Rules\Date\After($this->values, $this->thresholds)
+                    new \mikevandiepen\utility\Validate\Rules\Date\DateAfter($this->values, $this->thresholds)
                 ))->validate();
                 break;
 
             case 'between_dates':
                 $this->result = (boolean) (new Validation(
-                    new \mikevandiepen\utility\Validate\Rules\Date\Between($this->values, $this->thresholds)
+                    new \mikevandiepen\utility\Validate\Rules\Date\DateBetween($this->values, $this->thresholds)
                 ))->validate();
                 break;
 
@@ -235,21 +235,21 @@ class SimpleValidation
             case 'ipv4':
             case 'ipv4_address':
                 $this->result = (boolean) (new Validation(
-                    new \mikevandiepen\utility\Validate\Rules\String\IPV4Address($this->values, $this->thresholds)
+                    new \mikevandiepen\utility\Validate\Rules\String\IPv4Address($this->values, $this->thresholds)
                 ))->validate();
                 break;
 
             case 'ipv6':
             case 'ipv6_address':
                 $this->result = (boolean) (new Validation(
-                    new \mikevandiepen\utility\Validate\Rules\String\IPV6Address($this->values, $this->thresholds)
+                    new \mikevandiepen\utility\Validate\Rules\String\IPv6Address($this->values, $this->thresholds)
                 ))->validate();
                 break;
 
             case 'mac':
             case 'mac_address':
                 $this->result = (boolean) (new Validation(
-                    new \mikevandiepen\utility\Validate\Rules\String\MACAddress($this->values, $this->thresholds)
+                    new \mikevandiepen\utility\Validate\Rules\String\MacAddress($this->values, $this->thresholds)
                 ))->validate();
                 break;
 

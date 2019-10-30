@@ -1,14 +1,14 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\Date;
+namespace mikevandiepen\utility\Validate\Rules\String;
 
 use mikevandiepen\utility\Validate\Rules\Rule;
 use mikevandiepen\utility\Validate\ValidationInterface;
 
-class After extends Rule implements ValidationInterface
+class IPv6Address extends Rule implements ValidationInterface
 {
     /**
-     * After constructor.
+     * IpAddress constructor.
      *
      * @param array  $values
      * @param array  $parameters
@@ -24,6 +24,6 @@ class After extends Rule implements ValidationInterface
      */
     public function validate() : bool
     {
-        return !($this->values[0] > $this->parameters[0]);
+        return filter_var($this->values[0], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
     }
 }
