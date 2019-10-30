@@ -170,6 +170,8 @@ class Validator
                         break;
 
                     case 'regex':
+                    case 'expression':
+                    case 'regular_expression':
                         $this->results['valid'][] = (boolean) (new Validation(
                             new Rules\String\Regex($inputValues, $configuration['thresholds'])
                         ))->validate();
@@ -431,8 +433,25 @@ class Validator
      */
     private function getConfiguration(string &$rule): array
     {
-        $collection = array();
-        $collection['rule'] = strtolower($rule);
+        $collection             = array('rule' => strtolower($rule));
+        $regularExpressionRules = array('regex', 'expression', 'regular_expression');
+
+        // Validating whether the rule contains a regular expression
+        foreach ($regularExpressionRules as $regularExpressionRule) {
+            if (strpos($rule, $regularExpressionRules) !== false) {
+
+                // Checking if there are any patterns for this rule
+                if (strpos($rule, ':')) {
+                    preg_match('/(?<=\/)(.*?)(?=\/)/', $rule, $patterns);
+
+                    // Parsing through the patterns and storing them inside the thresholds array.
+                    foreach ($patterns as $pattern) {
+                        $collection['thresholds'][] = (string) $pattern;
+                    }
+                }
+            }
+        }
+
 
         // Checking if there are thresholds for the rule
         if (strpos($rule, ':')) {
@@ -443,6 +462,8 @@ class Validator
 
             // Reindexing and defining field type
             foreach ($thresholds as $threshold) {
+                if ($threshold)
+
                 if (is_string($threshold)) {
                     $threshold = (string) $threshold;
                 }
