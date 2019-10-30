@@ -438,7 +438,7 @@ class Validator
 
         // Validating whether the rule contains a regular expression
         foreach ($regularExpressionRules as $regularExpressionRule) {
-            if (strpos($rule, $regularExpressionRules) !== false) {
+            if (strpos($rule, $regularExpressionRule) !== false) {
 
                 // Checking if there are any patterns for this rule
                 if (strpos($rule, ':')) {
