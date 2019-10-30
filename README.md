@@ -85,7 +85,7 @@ mikevandiepen\utility\Form::validate($clean, [
 | `starts_with` | Whether the value of the field starts with the threshold substring. | 
 | `ends_with` | Whether the value of the field ends with the threshold substring. | 
 | `contains` | Whether the value of the field contains the threshold substring. | 
-| `regex` | Whether the value of the field matches the regular expression threshold pattern.  | 
+| `regex` / `expression` / `regular_expresion` | Whether the value of the field matches the regular expression threshold pattern.  | 
 | `exact_length` | Whether the value of the field matches the exact threshold length. | 
 | `minlen` / `min_length` | Whether the value of the field has the minimal required threshold length. | 
 | `maxlen` / `max_length` | Whether the value of the field has less then the maximal required threshold length. | 
@@ -93,6 +93,8 @@ mikevandiepen\utility\Form::validate($clean, [
 | `url` | Whether the value of the field is an url.| 
 | `domain` | Whether the value of the field is a domain name.| 
 | `ip` / `ip_address` | Whether the value of the field is an IP address. | 
+| `ipv4` / `ipv4_address` | Whether the value of the field is an IPv4 address. | 
+| `ipv6` / `ipv6_address` | Whether the value of the field is an IPv6 address. | 
 | `mac` / `mac_address` | Whether the value of the field is an MAC address | 
 | `between` | Whether the value of the field between two values. | 
 | `min` / `minimum` | Whether the value of the field has the minimum worth of the threshold. | 
@@ -107,7 +109,9 @@ mikevandiepen\utility\Form::validate($clean, [
 | `allowed_mime_types` | Whether the file has an allowed mime-type. | 
 | `max_size` / `max_file_size` | Whether the file is lesser or equal to the maximal file size. | 
 | `allowed_providers` / `allowed_email_providers` | Whether the domain of the email address is from an allowed / whitelisted provider. | 
-| `blocked_providers` / `blocked_email_providers` | Whether the domain of the email address is from an blocked / blacklisted provider. |  
+| `blocked_providers` / `blocked_email_providers` | Whether the domain of the email address is from an blocked / blacklisted provider. |
+| `cc` / `credit_card` | Whether the creditcard which the user has entered is a valid one. |
+| `iban` | Whether the iban which the user has entered is a valid one. |
 
 ## TODO:
 - **New validation rules**
@@ -124,6 +128,13 @@ mikevandiepen\utility\Form::validate($clean, [
     - Dutch translation
     - Swedish translation
     - German translation
+- **Test**
+    - Write tests with PHPunit
+- **Contributing**
+    - Write guides on how to contribute to the library
+- **Code inteligence**
+    - Implement more methods to validate code coverage
+    - Add translations for the newer rules
 
 ## Inspiration
 This library took some heavy inspiration from some other libraries, I just wanted an easier and more
