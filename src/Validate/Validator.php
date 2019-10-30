@@ -310,20 +310,20 @@ class Validator
                     // File validation
                     case 'allowed_extensions':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new  Rules\File\AllowedExtensions($inputValues, $configuration['thresholds'])
+                            new Rules\File\AllowedExtensions($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'allowed_mime_types':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new  Rules\File\AllowedMimeTypes($inputValues, $configuration['thresholds'])
+                            new Rules\File\AllowedMimeTypes($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'max_size':
                     case 'max_file_size':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new  Rules\File\MaxFileSize($inputValues, $configuration['thresholds'])
+                            new Rules\File\MaxFileSize($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
@@ -331,14 +331,28 @@ class Validator
                     case 'allowed_providers':
                     case 'allowed_email_providers':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new  Rules\Email\AllowedProviders($inputValues, $configuration['thresholds'])
+                            new Rules\Email\AllowedProviders($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
                     case 'blocked_providers':
                     case 'blocked_email_providers':
                         $this->results['valid'][] = (boolean) (new Validation(
-                            new  Rules\Email\BlockedProviders($inputValues, $configuration['thresholds'])
+                            new Rules\Email\BlockedProviders($inputValues, $configuration['thresholds'])
+                        ))->validate();
+                        break;
+
+                    // Payment validation
+                    case 'cc':
+                    case 'credit_card':
+                        $this->results['valid'][] = (boolean) (new Validation(
+                            new Rules\Payment\CreditCard($inputValues, $configuration['thresholds'])
+                        ))->validate();
+                        break;
+
+                    case 'iban':
+                        $this->results['valid'][] = (boolean) (new Validation(
+                            new Rules\Payment\IBAN($inputValues, $configuration['thresholds'])
                         ))->validate();
                         break;
 
