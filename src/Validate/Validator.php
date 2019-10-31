@@ -4,9 +4,32 @@ namespace mikevandiepen\utility\Validate;
 
 use mikevandiepen\utility\Response;
 use mikevandiepen\utility\Helpers\Translation;
+use mikevandiepen\utility\Helpers\Configuration;
 
 class Validator
 {
+    /**
+     * Filename for the rules config
+     */
+    const RULES_CONFIG_FILE = 'rules';
+
+    /**
+     * Filename for the rules aliases config
+     */
+    const RULES_ALIASES_CONFIG_FILE = 'rules_aliases';
+
+    /**
+     * The config for the validation rules will be stored in here
+     * @var array
+     */
+    private $rules = array();
+
+    /**
+     * The config for the validation rules aliases will be stored in here
+     * @var array
+     */
+    private $rulesAliases = array();
+
     /**
      * Used for storing the validation setup for the given attribute
      * @var array
@@ -56,6 +79,10 @@ class Validator
         $this->request  = $request;
         $this->config   = $config;
         $this->language = $language;
+
+        // Calling the configuration files
+        $this->rules        = (new Configuration(self::RULES_CONFIG_FILE))->get();
+        $this->rulesAliases = (new Configuration(self::RULES_ALIASES_CONFIG_FILE))->get();
     }
 
     /**
@@ -65,313 +92,24 @@ class Validator
     public function validate() : self
     {
         // Instantiating the response and translation classes
-        $this->response     = new Response();
+        // $this->response     = new Response();
         $this->translation  = new Translation();
 
         foreach ($this->config as $field => $rules) {           // Parsing through all the fields
             foreach (explode('|', $rules) as $rule) {  // Parsing through the filters and applying them to each field
 
                 // Extracting the parameters
-                $configuration  = $this->getConfiguration($rule);
-                $inputValues    = is_array($this->request[$field]) ? $this->request[$field] : array($this->request[$field]);
+                $configuration      = $this->getConfiguration($rule);
+                $inputValues        = is_array($this->request[$field]) ? $this->request[$field] : array($this->request[$field]);
+                $ruleConfiguration  = $this->getRuleConfiguration($configuration['rule']);
 
-                // Transforming the string to lowercase to be more flexible to the end user
-                switch (strtolower($configuration['rule'])) {
+                // Creating the namespace dynamically
+                $class = 'Rules\\' . $ruleConfiguration['category'] . '\\' . $ruleConfiguration['class'];
 
-                    // Basic validation
-                    case 'required':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Basic\Required($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
+                var_dump($this->callValidationRule($class, $inputValues, $configuration['thresholds']));
 
-                    // Type validation
-                    case 'num':
-                    case 'numeric':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Types\TypeNumeric($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'float':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Types\TypeFloat($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'bool':
-                    case 'boolean':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Types\TypeBoolean($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'int':
-                    case 'integer':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Types\TypeInteger($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'null':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Types\TypeNull($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'string':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Types\TypeString($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'array':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Types\TypeArray($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    // Date validation
-                    case 'before_date':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Date\DateBefore($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'after_date':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Date\DateAfter($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'between_dates':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Date\DateBetween($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    // String validation
-                    case 'starts_with':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\StartsWith($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'ends_with':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\EndsWith($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'contains':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\Contains($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'regex':
-                    case 'expression':
-                    case 'regular_expression':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\Regex($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'exact_length':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\ExactLength($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'minlen':
-                    case 'min_length':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\MinLength($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'maxlen':
-                    case 'max_length':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\MaxLength($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    // String types
-                    case 'email':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\Email($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'url':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\Url($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'domain':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\Domain($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'ip':
-                    case 'ip_address':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\IPAddress($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'ipv4':
-                    case 'ipv4_address':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\IPv4Address($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'ipv6':
-                    case 'ipv6_address':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\IPv6Address($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'mac':
-                    case 'mac_address':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\String\MacAddress($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    // Numeric validation
-                    case 'between':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Numeric\Between($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'min':
-                    case 'minimum':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Numeric\Min($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'max':
-                    case 'maximum':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Numeric\Max($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'equal':
-                    case 'equals':
-                    case 'equal_to':
-                    case 'equals_to':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Numeric\Equal($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'not_equal':
-                    case 'not_equal_to':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Numeric\NotEqual($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'gt':
-                    case 'greater_than':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Numeric\GreaterThan($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'gte':
-                    case 'greater_than_or_equal_to':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Numeric\GreaterThanOrEqualTo($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'lt':
-                    case 'less_than':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Numeric\LessThan($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'lte':
-                    case 'less_than_or_equal_to':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Numeric\LessThanOrEqualTo($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    // File validation
-                    case 'allowed_extensions':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\File\AllowedExtensions($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'allowed_mime_types':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\File\AllowedMimeTypes($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'max_size':
-                    case 'max_file_size':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\File\MaxFileSize($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    // Email validation
-                    case 'allowed_providers':
-                    case 'allowed_email_providers':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Email\AllowedProviders($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'blocked_providers':
-                    case 'blocked_email_providers':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Email\BlockedProviders($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    // Payment validation
-                    case 'cc':
-                    case 'credit_card':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Payment\CreditCard($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    case 'iban':
-                        $this->results['valid'][] = (boolean) (new Validation(
-                            new Rules\Payment\IBAN($inputValues, $configuration['thresholds'])
-                        ))->validate();
-                        break;
-
-                    //--------------------------------------------------------------------------------------------------
-                    // More validation rules can be added here
-                    //--------------------------------------------------------------------------------------------------
-                    //
-                    //  EXAMPLE:
-                    //
-                    //  case 'rule':
-                    //      $this->results['valid'][] = (boolean) (new Validation(
-                    //          new Rules\RuleType\RuleName($inputValues, $configuration['thresholds']))
-                    //      )->validate();
-                    //  break;
-                    //
-                    //--------------------------------------------------------------------------------------------------
-                }
+                // Applying the validation rule by calling the filter dynamically
+                $this->results['valid'][] = $this->callValidationRule($class, $inputValues, $configuration['thresholds']);
 
                 // Creating a validation config for the current operation
                 $this->results[] = [
@@ -403,6 +141,65 @@ class Validator
         }
 
         return $this;
+    }
+
+    /**
+     * @param string $class
+     * @param array  $value
+     * @param array  $thresholds
+     *
+     * @return bool
+     */
+    private function callValidationRule(string $class, array $value, array $thresholds) : bool
+    {
+        try {
+            // Transforming the dynamic namespace and class to an class which implements ValidationInterface
+            $reflection = new \ReflectionClass($class);
+            $reflection->implementsInterface('ValidationInterface');
+
+            // Calling the validating rule
+            return (boolean) (new Validation(
+                new $reflection($value, $thresholds)
+            ))->validate();
+
+            // Something went wrong, this will be left unhandled
+        } catch(\ReflectionException $e) {
+            print_r($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Collects the rule by the alias
+     * @param string $alias
+     *
+     * @return string
+     */
+    private function getRuleByAlias(string $alias) : string
+    {
+        return $this->rulesAliases[$alias];
+    }
+
+    /**
+     * Collects the rule configuration by the identified rule
+     * @param string $rule
+     *
+     * @return array
+     */
+    private function getRuleConfiguration(string $rule) : array
+    {
+        // Checking whether the rule is an alias
+        if (in_array($rule, array_keys($this->rulesAliases)) || key_exists($rule, $this->rulesAliases)) {
+            // Assigning the rule main name as $rule
+            $rule = $this->getRuleByAlias($rule);
+        }
+
+        // Validating whether the rule exists
+        if (key_exists($rule, $this->rules)) {
+            return $this->rules[$rule];
+        } else {
+            return array();
+        }
     }
 
     /**
@@ -451,7 +248,6 @@ class Validator
                 }
             }
         }
-
 
         // Checking if there are thresholds for the rule
         if (strpos($rule, ':')) {
@@ -503,7 +299,6 @@ class Validator
         $attributes['attribute'] = $attribute;
 
         // Parsing through all the values and putting them into the $attributes[] array
-
         if (($valuesCount = count($values)) > 1) {
             for ($i = 0; $i < $valuesCount; $i++) {
                 $attributes['value_' . $i] = $values[$i];
