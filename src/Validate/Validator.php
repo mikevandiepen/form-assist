@@ -3,8 +3,7 @@
 namespace mikevandiepen\utility\Validate;
 
 use mikevandiepen\utility\Response;
-use mikevandiepen\utility\Translator\Translator;
-use mikevandiepen\utility\Translator\Translation;
+use mikevandiepen\utility\Helpers\Translation;
 
 class Validator
 {
@@ -22,7 +21,7 @@ class Validator
 
     /**
      * The translation class will be stored in here and is used for getting the translations
-     * @var Translator
+     * @var Translation
      */
     private $translation;
 
