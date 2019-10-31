@@ -17,7 +17,16 @@ Not everything has been tested yet, use on own risk.
 Via Composer
 
 ``` bash
-$ composer require mikevandiepen/advanced-form-helper
+$ composer require mikevandiepen/form-validation-sanitization
+```
+
+Via GIT
+``` bash
+HTTPS:
+git clone https://github.com/mikevandiepen/form-validation-sanitization.git
+
+SSH:
+git clone git@github.com:mikevandiepen/form-validation-sanitization.git
 ```
 
 ## Usage
