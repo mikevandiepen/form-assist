@@ -1,5 +1,5 @@
 {
-  "name": "mikevandiepen/advanced-form-helper",
+  "name": "mikevandiepen/form-validation-sanitization",
   "description": "An utility for form validation and parameter sanitization",
   "license": "MIT",
   "authors": [
@@ -13,7 +13,7 @@
   "version": "0.9.0",
   "autoload": {
     "psr-4": {
-        "Advanced-form-helper\\": "/src"
+        "form-validation-sanitization\\": "/src"
     }
   },
   "require": {
