@@ -3,32 +3,15 @@
 namespace mikevandiepen\utility\Validate;
 
 use mikevandiepen\utility\Response;
+use mikevandiepen\utility\Helpers\Factory;
 use mikevandiepen\utility\Helpers\Translation;
-use mikevandiepen\utility\Helpers\Configuration;
 
 class Validator
 {
     /**
-     * Filename for the rules config
+     * REGISTRY_TYPE used for the factory
      */
-    const RULES_CONFIG_FILE = 'rules';
-
-    /**
-     * Filename for the rules aliases config
-     */
-    const RULES_ALIASES_CONFIG_FILE = 'rules_aliases';
-
-    /**
-     * The config for the validation rules will be stored in here
-     * @var array
-     */
-    private $rules = array();
-
-    /**
-     * The config for the validation rules aliases will be stored in here
-     * @var array
-     */
-    private $rulesAliases = array();
+    const REGISTRY_TYPE = 'validation';
 
     /**
      * Used for storing the validation setup for the given attribute
@@ -79,21 +62,21 @@ class Validator
         $this->request  = $request;
         $this->config   = $config;
         $this->language = $language;
-
-        // Calling the configuration files
-        $this->rules        = (new Configuration(self::RULES_CONFIG_FILE))->get();
-        $this->rulesAliases = (new Configuration(self::RULES_ALIASES_CONFIG_FILE))->get();
     }
 
     /**
      * Validating all the values and applying all the assigned rules
      * @return Validator
+     * @throws \Exception
      */
     public function validate() : self
     {
         // Instantiating the response and translation classes
-        // $this->response     = new Response();
+        $this->response     = new Response();
         $this->translation  = new Translation();
+
+        // Instantiating the factory
+        $factory = new Factory(self::REGISTRY_TYPE);
 
         foreach ($this->config as $field => $rules) {           // Parsing through all the fields
             foreach (explode('|', $rules) as $rule) {  // Parsing through the filters and applying them to each field
@@ -102,17 +85,12 @@ class Validator
                 $configuration      = $this->getConfiguration($rule);
                 $inputValues        = is_array($this->request[$field]) ? $this->request[$field] : array($this->request[$field]);
 
-                // Getting the configuration for the rule
-                $ruleConfiguration  = $this->getRuleConfiguration($configuration['rule']);
-
-                // Creating the namespace dynamically
-                $class = 'Rules\\' . $ruleConfiguration['category'] . '\\' . $ruleConfiguration['class'];
-
-                // Applying the validation rule by calling the filter dynamically
-                $this->results['valid'][] = $this->callValidationRule($class, $inputValues, $configuration['thresholds']);
+                // Getting the configuration for the filter
+                $results = $factory->build(self::REGISTRY_TYPE, $configuration['rule'], $inputValues, $configuration);
 
                 // Creating a validation config for the current operation
                 $this->results[] = [
+                    'valid'         => $results,
                     'field'         => $field,
                     'rule'          => $configuration['rule'],
                     'values'        => $inputValues,
@@ -141,53 +119,6 @@ class Validator
         }
 
         return $this;
-    }
-
-    /**
-     * @param string $class
-     * @param array  $value
-     * @param array  $thresholds
-     *
-     * @return bool
-     */
-    private function callValidationRule(string $class, array $value, array $thresholds) : bool
-    {
-        return (boolean) (new Validation(
-            new $class($value, $thresholds))
-        )->validate();
-    }
-
-    /**
-     * Collects the rule by the alias
-     * @param string $alias
-     *
-     * @return string
-     */
-    private function getRuleByAlias(string $alias) : string
-    {
-        return $this->rulesAliases[$alias];
-    }
-
-    /**
-     * Collects the rule configuration by the identified rule
-     * @param string $rule
-     *
-     * @return array
-     */
-    private function getRuleConfiguration(string $rule) : array
-    {
-        // Checking whether the rule is an alias
-        if (in_array($rule, array_keys($this->rulesAliases)) || key_exists($rule, $this->rulesAliases)) {
-            // Assigning the rule main name as $rule
-            $rule = $this->getRuleByAlias($rule);
-        }
-
-        // Validating whether the rule exists
-        if (key_exists($rule, $this->rules)) {
-            return $this->rules[$rule];
-        } else {
-            return array();
-        }
     }
 
     /**
