@@ -2,6 +2,7 @@
 
 namespace mikevandiepen\utility\Sanitize;
 
+use mikevandiepen\utility\Helpers\Factory;
 use mysqli;
 use mikevandiepen\utility\Helpers\Factory;
 

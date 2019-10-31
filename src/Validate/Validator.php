@@ -2,6 +2,7 @@
 
 namespace mikevandiepen\utility\Validate;
 
+use mikevandiepen\utility\Helpers\Factory;
 use mikevandiepen\utility\Response;
 use mikevandiepen\utility\Helpers\Factory;
 use mikevandiepen\utility\Helpers\Translation;
