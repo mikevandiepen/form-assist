@@ -1,6 +1,7 @@
 # advanced-form-helper
-[![Downloads this Month](https://img.shields.io/packagist/dm/mikevandiepen/form-validation-sanitization.svg)](https://packagist.org/packages/mikevandiepen/form-validation-sanitization)
-[![Latest stable](https://img.shields.io/packagist/v/mikevandiepen/form-validation-sanitization.svg)](https://packagist.org/packages/mikevandiepen/form-validation-sanitization)
+[![Total Downloads](https://poser.pugx.org/mikevandiepen/form-validation-sanitization/downloads)](https://packagist.org/packages/mikevandiepen/form-validation-sanitization)
+[![Latest Stable Version](https://poser.pugx.org/mikevandiepen/form-validation-sanitization/version)](https://packagist.org/packages/mikevandiepen/form-validation-sanitization)
+[![Version](https://img.shields.io/packagist/v/mikevandiepen/form-validation-sanitization.svg)](https://packagist.org/packages/mikevandiepen/form-validation-sanitization)
 [![Software License][ico-license]](LICENSE.md)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/mikevandiepen/form-validation-sanitization/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Build Status](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/badges/build.png?b=master)](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/build-status/master)
