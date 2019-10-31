@@ -18,7 +18,7 @@
 //  the filters_aliases file.
 //
 //----------------------------------------------------------------------------------------------------------------------
-//                          Did you add a new translation? Please submit it to the repository!
+//                            Did you add a new filter? Please submit it to the repository!
 //----------------------------------------------------------------------------------------------------------------------
 
 return [

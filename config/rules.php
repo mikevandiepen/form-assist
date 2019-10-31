@@ -20,7 +20,7 @@
 //  the rules_aliases file.
 //
 //----------------------------------------------------------------------------------------------------------------------
-//                          Did you add a new translation? Please submit it to the repository!
+//                             Did you add a new rule? Please submit it to the repository!
 //----------------------------------------------------------------------------------------------------------------------
 
 return [

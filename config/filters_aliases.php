@@ -1,6 +1,6 @@
 <?php
 //----------------------------------------------------------------------------------------------------------------------
-//                                       How to register your new sanitization filter
+//                                     How to register your new sanitization filter
 //----------------------------------------------------------------------------------------------------------------------
 //
 //  For each new filter your create you need to add the configuration here.
@@ -18,7 +18,7 @@
 //  the filters_aliases file.
 //
 //----------------------------------------------------------------------------------------------------------------------
-//                          Did you add a new translation? Please submit it to the repository!
+//                            Did you add a new aliases? Please submit it to the repository!
 //----------------------------------------------------------------------------------------------------------------------
 
 return [
