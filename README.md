@@ -1,7 +1,6 @@
 # advanced-form-helper
 [![Total Downloads](https://poser.pugx.org/mikevandiepen/form-validation-sanitization/downloads)](https://packagist.org/packages/mikevandiepen/form-validation-sanitization)
 [![Latest Stable Version](https://poser.pugx.org/mikevandiepen/form-validation-sanitization/version)](https://packagist.org/packages/mikevandiepen/form-validation-sanitization)
-[![Latest Stable Version](https://poser.pugx.org/phpunit/phpunit/version)](https://packagist.org/packages/phpunit/phpunit)
 [![Version](https://img.shields.io/packagist/v/mikevandiepen/form-validation-sanitization.svg)](https://packagist.org/packages/mikevandiepen/form-validation-sanitization)
 [![Software License][ico-license]](LICENSE.md)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/mikevandiepen/form-validation-sanitization/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
