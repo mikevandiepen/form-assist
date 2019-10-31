@@ -2,11 +2,12 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
-[![Code Intelligence Status](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/mikevandiepen/form-validation-sanitization/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Build Status](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/badges/build.png?b=master)](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/build-status/master)
-[![Code Coverage](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/badges/coverage.png?b=master)](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/b/mikevandiepen/advanced-form-helper/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/mikevandiepen/form-validation-sanitization/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/mikevandiepen/form-validation-sanitization/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mikevandiepen/form-validation-sanitization/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mikevandiepen/form-validation-sanitization/?branch=master)
 [![Total Downloads][ico-downloads]][link-downloads]
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D_7.1-8892BF.svg)](https://github.com/symfony/symfony)
 
 ## Be aware!
 Not everything has been tested yet, use on own risk.

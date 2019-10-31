@@ -106,8 +106,6 @@ class Validator
                 // Creating the namespace dynamically
                 $class = 'Rules\\' . $ruleConfiguration['category'] . '\\' . $ruleConfiguration['class'];
 
-                var_dump($this->callValidationRule($class, $inputValues, $configuration['thresholds']));
-
                 // Applying the validation rule by calling the filter dynamically
                 $this->results['valid'][] = $this->callValidationRule($class, $inputValues, $configuration['thresholds']);
 
@@ -152,21 +150,9 @@ class Validator
      */
     private function callValidationRule(string $class, array $value, array $thresholds) : bool
     {
-        try {
-            // Transforming the dynamic namespace and class to an class which implements ValidationInterface
-            $reflection = new \ReflectionClass($class);
-            $reflection->implementsInterface('ValidationInterface');
-
-            // Calling the validating rule
-            return (boolean) (new Validation(
-                new $reflection($value, $thresholds)
-            ))->validate();
-
-            // Something went wrong, this will be left unhandled
-        } catch(\ReflectionException $e) {
-            print_r($e->getMessage());
-            return false;
-        }
+        return (boolean) (new Validation(
+            new $class($value, $thresholds))
+        )->validate();
     }
 
     /**
