@@ -2,20 +2,12 @@
 
 namespace mikevandiepen\utility\Sanitize;
 
-use mysqli;
-
 class Sanitization
 {
     /**
      * @var SanitizationInterface
      */
     protected $sanitization;
-
-    /**
-     * The link for the mysqli connection
-     * @var null|mysqli
-     */
-    private $link;
 
     /**
      * Validation constructor.

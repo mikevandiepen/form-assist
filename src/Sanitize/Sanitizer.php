@@ -3,151 +3,139 @@
 namespace mikevandiepen\utility\Sanitize;
 
 use mysqli;
+use mikevandiepen\utility\Helpers\Configuration;
 
 class Sanitizer
 {
     /**
+     * Filename for the rules config
+     */
+    const FILTERS_CONFIG_FILE = 'filters';
+
+    /**
+     * Filename for the rules aliases config
+     */
+    const FILTERS_ALIASES_CONFIG_FILE = 'filters_aliases';
+
+    /**
+     * The config for the sanitization filters will be stored in here
+     * @var array
+     */
+    private $filters = array();
+
+    /**
+     * The config for the sanitization filters aliases will be stored in here
+     * @var array
+     */
+    private $filtersAliases = array();
+
+    /**
      * All cleaned output will be stored in here
      * @var array
      */
-    private static $output = array();
+    private $output = array();
+
+    /**
+     * The $_POST request / data which should be sanitized is stored in here
+     * @var array
+     */
+    private $request = array();
+
+    /**
+     * The filters which are applied to the data
+     * @var array
+     */
+    private $config = array();
+
+    /**
+     * The mysqli object which will be used for SQL sanitization
+     * @var mysqli|null
+     */
+    private $link = null;
+
+    /**
+     * Sanitizer constructor.
+     *
+     * @param array $request
+     * @param array $config
+     * @param null|mysqli  $link
+     */
+    public function __construct(array $request, array $config = array(), $link = null)
+    {
+        $this->request  = $request;
+        $this->config   = $config;
+        $this->link     = $link;
+
+        // Calling the configuration files
+        $this->filters          = (new Configuration(self::FILTERS_CONFIG_FILE))->get();
+        $this->filtersAliases   = (new Configuration(self::FILTERS_ALIASES_CONFIG_FILE))->get();
+    }
 
     /**
      * Validating all the values and applying all the assigned rules
-     * @param array       $request
-     * @param array       $config
-     * @param null|mysqli $link
-     *
      * @return array
      */
-    public function sanitize(array $request, array $config = array(), $link = null) : array
+    public function sanitize() : array
     {
-        // Parsing through all the fields
-        foreach($config as $field => $filters) {
+        foreach($this->config as $field => $filters) {              // Parsing through all the fields
+            foreach(explode('|', $filters) as $filter) {   // Parsing through the filters and applying them to each field
 
-            // Parsing through the filters and applying them to each field
-            foreach(explode('|', $filters) as $filter) {
-                switch($filter) {
+                // Getting the configuration for the filter
+                $filterConfiguration  = $this->getFilterConfiguration($filter);
 
-                    case 'sql':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\SanitizeSQL($request[$field], $link))
-                        )->sanitize();
-                        break;
+                // Creating the namespace dynamically
+                $class = 'Rules\\' . $filterConfiguration['class'];
 
-                    case 'xss':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\SanitizeXSS($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'email':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\SanitizeEmail($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'url':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\SanitizeUrl($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'numeric':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\SanitizeNumeric($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'float':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\SanitizeFloat($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'json_encode':
-                    case 'encode_json':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\JsonEncode($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'json_decode':
-                    case 'decode_json':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\JsonDecode($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'trim':
-                    case 'trim_all':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\Trim($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'ltrim':
-                    case 'left_trim':
-                    case 'trim_left':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\LeftTrim($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'rtrim':
-                    case 'right_trim':
-                    case 'trim_right':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\RightTrim($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'upper':
-                    case 'uppercase':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\UpperCase($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'lower':
-                    case 'lowercase':
-                        self::$output[$field] = (string) (new Sanitization(
-                                new Filters\LowerCase($request[$field])
-                            ))->sanitize();
-                        break;
-
-                    case 'slug':
-                    case 'slugify':
-                    case 'to_slug':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\Slugify($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    case 'tags':
-                    case 'strip_tags':
-                        self::$output[$field] = (string) (new Sanitization(
-                            new Filters\StripTags($request[$field]))
-                        )->sanitize();
-                        break;
-
-                    //--------------------------------------------------------------------------------------------------
-                    // More sanitization filters can be added here
-                    //--------------------------------------------------------------------------------------------------
-                    //
-                    //  EXAMPLE:
-                    //
-                    //  case 'filter':
-                    //      self::$output[$field] = (string) (new Sanitization(
-                    //          new Filters\Filter($request[$field]))
-                    //      )->sanitize();
-                    //  break;
-                    //
-                    //--------------------------------------------------------------------------------------------------
-                }
+                $this->output[$field] = $this->callSanitizationFilter($class,$filter);
             }
         }
 
-        return self::$output;
+        return $this->output;
+    }
+
+    /**
+     * @param string $class
+     * @param string $field
+     *
+     * @return bool
+     */
+    private function callSanitizationFilter(string $class, string $field) : bool
+    {
+        return (boolean) (new Sanitization(
+            new $class($field))
+        )->sanitize();
+    }
+
+    /**
+     * Collects the rule by the alias
+     * @param string $alias
+     *
+     * @return string
+     */
+    private function getFiltersByAlias(string $alias) : string
+    {
+        return $this->filtersAliases[$alias];
+    }
+
+    /**
+     * Collects the rule configuration by the identified rule
+     * @param string $filter
+     *
+     * @return array
+     */
+    private function getFilterConfiguration(string $filter) : array
+    {
+        // Checking whether the rule is an alias
+        if (in_array($filter, array_keys($this->filtersAliases)) || key_exists($filter, $this->filtersAliases)) {
+            // Assigning the rule main name as $filter
+            $filter = $this->getFiltersByAlias($filter);
+        }
+
+        // Validating whether the rule exists
+        if (key_exists($filter, $this->filters)) {
+            return $this->filters[$filter];
+        } else {
+            return array();
+        }
     }
 }

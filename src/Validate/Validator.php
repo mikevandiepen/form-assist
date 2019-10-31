@@ -101,6 +101,8 @@ class Validator
                 // Extracting the parameters
                 $configuration      = $this->getConfiguration($rule);
                 $inputValues        = is_array($this->request[$field]) ? $this->request[$field] : array($this->request[$field]);
+
+                // Getting the configuration for the rule
                 $ruleConfiguration  = $this->getRuleConfiguration($configuration['rule']);
 
                 // Creating the namespace dynamically

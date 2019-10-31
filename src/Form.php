@@ -27,6 +27,18 @@ class Form
     }
 
     /**
+     * @param array       $request
+     * @param array       $config
+     * @param null|mysqli $link
+     *
+     * @return array
+     */
+    public static function sanitize(array $request, array $config = array(), $link = null) : array
+    {
+        return (new Sanitizer($request, $config, $link))->sanitize();
+    }
+
+    /**
      * Collecting the validation messages from the Validator class
      * @return string
      */
@@ -42,17 +54,5 @@ class Form
     public static function validationPasses() : bool
     {
         return self::$validator->passesValidation();
-    }
-
-    /**
-     * @param array       $request
-     * @param array       $config
-     * @param null|mysqli $link
-     *
-     * @return array
-     */
-    public static function sanitize(array $request, array $config = array(), $link = null) : array
-    {
-        return (new Sanitizer())->sanitize($request, $config, $link);
     }
 }

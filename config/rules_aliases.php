@@ -6,17 +6,13 @@
 //  For each new rule your create you need to add the configuration here.
 //  If the rule is not registered it can not be used.
 //  The values you have to fill are:
-//      - rule (Generally how your rule is named, the translations will be looked up according to this name)
-//      - type (The rule type, in this example Basic. Which means the folder the class is in, is inside: 'Rules/Basic/')
-//      - class (The classname of the validation rule)
+//  - rule_alias    (The alias for an existing rule)
+//  - rule_name     (The rule name which alias is an alias from)
 //
 //  Structure:
 //  [
 //      'alias' => 'rule_name' (As in config/rules.php)
 //  ]
-//
-//  If your rule has aliases, you need to register the alias inside '/config/rules_aliases.php'. More details are inside
-//  the rules_aliases file.
 //
 //----------------------------------------------------------------------------------------------------------------------
 //                          Did you add a new translation? Please submit it to the repository!
