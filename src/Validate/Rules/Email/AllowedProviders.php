@@ -4,11 +4,11 @@ namespace mikevandiepen\utility\Validate\Rules\Email;
 
 use mikevandiepen\utility\Validate\Rules\Rule;
 use mikevandiepen\utility\Validate\ValidationInterface;
-use mikevandiepen\utility\Validate\Traits\ExtractDomainTrait;
+use mikevandiepen\utility\Validate\Traits\DomainTraits;
 
 class AllowedProviders extends Rule implements ValidationInterface
 {
-    use ExtractDomainTrait;
+    use DomainTraits;
 
     /**
      * AllowedProviders constructor.
