@@ -1,6 +1,6 @@
 <?php
 
-namespace mikevandiepen\utility\tests;
+namespace Mediadevs\FormAssist\tests;
 
 use PHPUnit\Framework\TestCase;
 

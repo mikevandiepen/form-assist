@@ -1,9 +1,9 @@
 <?php
 
-namespace mikevandiepen\utility\Examples;
+namespace Mediadevs\FormAssist\Examples;
 
-use mikevandiepen\utility\Validate\Rules\Rule;
-use mikevandiepen\utility\Validate\ValidationInterface;
+use Mediadevs\FormAssist\Validate\Rules\Rule;
+use Mediadevs\FormAssist\Validate\ValidationInterface;
 
 class CustomValidationRuleExample extends Rule implements ValidationInterface
 {

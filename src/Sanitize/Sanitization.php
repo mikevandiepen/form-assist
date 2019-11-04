@@ -1,6 +1,6 @@
 <?php
 
-namespace mikevandiepen\utility\Sanitize;
+namespace Mediadevs\FormAssist\Sanitize;
 
 class Sanitization
 {

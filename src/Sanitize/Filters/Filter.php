@@ -1,6 +1,6 @@
 <?php
 
-namespace mikevandiepen\utility\Sanitize\Filters;
+namespace Mediadevs\FormAssist\Sanitize\Filters;
 
 use mysqli;
 

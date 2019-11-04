@@ -1,9 +1,9 @@
 <?php
 
-namespace mikevandiepen\utility\Sanitize\Filters;
+namespace Mediadevs\FormAssist\Sanitize\Filters;
 
 use mysqli;
-use mikevandiepen\utility\Sanitize\SanitizationInterface;
+use Mediadevs\FormAssist\Sanitize\SanitizationInterface;
 
 class Trim extends Filter implements SanitizationInterface
 {

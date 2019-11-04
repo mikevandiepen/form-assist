@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Validate;
+namespace Mediadevs\FormAssist\Validate;
 
 use mikevandiepen\utility\Response;
-use mikevandiepen\utility\Helpers\Factory;
-use mikevandiepen\utility\Helpers\Translation;
+use Mediadevs\FormAssist\Helpers\Factory;
+use Mediadevs\FormAssist\Helpers\Translation;
 
 class Validator
 {

@@ -1,6 +1,6 @@
 {
-  "name": "mikevandiepen/form-validation-sanitization",
-  "description": "An utility for form validation and parameter sanitization",
+  "name": "mediadevs/form-assist",
+  "description": "A framework for validation and sanitizing form data.",
   "license": "MIT",
   "authors": [
     {
@@ -13,7 +13,7 @@
   "version": "0.9.0",
   "autoload": {
     "psr-4": {
-        "form-validation-sanitization\\": "/src"
+        "Mediadevs\\FormAssist\\": "src/"
     }
   },
   "require": {
@@ -22,5 +22,8 @@
     "ext-mysqli": "*",
     "ext-fileinfo": "*",
     "mikevandiepen/response": "1.2.2"
-  }
+  },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    }
 }

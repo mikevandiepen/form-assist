@@ -1,9 +1,9 @@
 <?php
 
-namespace mikevandiepen\utility\Sanitize;
+namespace Mediadevs\FormAssist\Sanitize;
 
 use mysqli;
-use mikevandiepen\utility\Helpers\Factory;
+use Mediadevs\FormAssist\Helpers\Factory;
 
 class Sanitizer
 {

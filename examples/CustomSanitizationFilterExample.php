@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Examples;
+namespace Mediadevs\FormAssist\Examples;
 
 use mysqli;
-use mikevandiepen\utility\Sanitize\Filters\Filter;
-use mikevandiepen\utility\Sanitize\SanitizationInterface;
+use Mediadevs\FormAssist\Sanitize\Filters\Filter;
+use Mediadevs\FormAssist\Sanitize\SanitizationInterface;
 
 class CustomSanitizationFilterExample extends Filter implements SanitizationInterface
 {

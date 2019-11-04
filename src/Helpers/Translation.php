@@ -1,6 +1,6 @@
 <?php
 
-namespace mikevandiepen\utility\Helpers;
+namespace Mediadevs\FormAssist\Helpers;
 
 class Translation
 {

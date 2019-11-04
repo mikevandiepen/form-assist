@@ -35,7 +35,7 @@ git clone git@github.com:mikevandiepen/form-validation-sanitization.git
 
 ```php
 <?php 
-$clean = mikevandiepen\utility\Form::sanitize($_POST, [
+$clean = Mediadevs\FormAssist\Form::sanitize($_POST, [
        'name'  => 'sql|xss|trim',
        'email' => 'sql|xss|trim|email',
 ], $mysqli_connection);
@@ -49,7 +49,7 @@ $clean = mikevandiepen\utility\Form::sanitize($_POST, [
 
 ```php
 <?php 
-mikevandiepen\utility\Form::validate($clean, [
+Mediadevs\FormAssist\Form::validate($clean, [
     'name'  => 'required|string|min_length:6',
     'email' => 'required|email|allowed_providers:hotmail.com,outlook.com,live.com,gmail.com,yourwebsite.tld',
 ], $language);

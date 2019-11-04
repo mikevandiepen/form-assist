@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility;
+namespace Mediadevs\FormAssist;
 
 use mysqli;
-use mikevandiepen\utility\Sanitize\Sanitizer;
-use mikevandiepen\utility\Validate\Validator;
+use Mediadevs\FormAssist\Sanitize\Sanitizer;
+use Mediadevs\FormAssist\Validate\Validator;
 
 class Form
 {
@@ -20,6 +20,7 @@ class Form
      * @param string $language
      *
      * @return void
+     * @throws \Exception
      */
     public static function validate(array $request, array $config = array(), string $language = 'default') : void
     {
@@ -32,6 +33,7 @@ class Form
      * @param null|mysqli $link
      *
      * @return array
+     * @throws \Exception
      */
     public static function sanitize(array $request, array $config = array(), $link = null) : array
     {

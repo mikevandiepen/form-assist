@@ -1,6 +1,6 @@
 <?php
 
-namespace mikevandiepen\utility\Validate;
+namespace Mediadevs\FormAssist\Validate;
 
 class Validation
 {

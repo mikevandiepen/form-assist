@@ -1,6 +1,6 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Traits;
+namespace Mediadevs\FormAssist\Validate\Traits;
 
 trait DomainTraits
 {

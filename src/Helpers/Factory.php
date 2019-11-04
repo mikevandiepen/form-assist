@@ -1,23 +1,31 @@
 <?php
 
-namespace mikevandiepen\utility\Helpers;
+namespace Mediadevs\FormAssist\Helpers;
 
 use mysqli;
 use Exception;
-use mikevandiepen\utility\Validate\Validation;
-use mikevandiepen\utility\Sanitize\Sanitization;
+use Mediadevs\FormAssist\Validate\Validation;
+use Mediadevs\FormAssist\Sanitize\Sanitization;
 
 class Factory
 {
     /**
      * Registry name for validation
      */
-    const VALIDATION_REGISTRY   = 'validation';
+    const VALIDATION_REGISTRY   = array(
+        'registry_name'         => 'validation',
+        'config_file'           => 'Validation' . DIRECTORY_SEPARATOR . 'validation',
+        'config_file_aliases'   => 'Validation' . DIRECTORY_SEPARATOR . 'validation_aliases'
+    );
 
     /**
      * Registry name for sanitization
      */
-    const SANITIZATION_REGISTRY = 'sanitization';
+    const SANITIZATION_REGISTRY = array(
+        'registry_name'         => 'sanitization',
+        'config_file'           => 'Sanitization' . DIRECTORY_SEPARATOR . 'sanitization',
+        'config_file_aliases'   => 'Sanitization' . DIRECTORY_SEPARATOR . 'sanitization_aliases'
+    );
 
     /**
      * The registered are stored in here
@@ -36,8 +44,8 @@ class Factory
      * @var array
      */
     private $registryTypes = array(
-        self::VALIDATION_REGISTRY,
-        self::SANITIZATION_REGISTRY
+        self::VALIDATION_REGISTRY['registry_name'],
+        self::SANITIZATION_REGISTRY['registry_name']
     );
 
     /**
@@ -50,8 +58,8 @@ class Factory
     public function __construct(string $registryType)
     {
         if (in_array($registryType, $this->registryTypes)) {
-            $this->registry = (new Configuration(self::VALIDATION_REGISTRY))->get();
-            $this->aliases  = (new Configuration(self::VALIDATION_REGISTRY . '_aliases'))->get();
+            $this->registry = (new Configuration(self::VALIDATION_REGISTRY['config_file']))->get();
+            $this->aliases  = (new Configuration(self::VALIDATION_REGISTRY['config_file_aliases']))->get();
         } else {
             throw new Exception('Invalid registry type!');
         }
