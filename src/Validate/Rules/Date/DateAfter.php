@@ -1,9 +1,9 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\Date;
+namespace Mediadevs\FormAssist\Validate\Rules\Date;
 
-use mikevandiepen\utility\Validate\Rules\Rule;
-use mikevandiepen\utility\Validate\ValidationInterface;
+use Mediadevs\FormAssist\Validate\Rules\Rule;
+use Mediadevs\FormAssist\Validate\ValidationInterface;
 
 class DateAfter extends Rule implements ValidationInterface
 {

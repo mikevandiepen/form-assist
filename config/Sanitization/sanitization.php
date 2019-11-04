@@ -20,21 +20,21 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 return [
-    'slq'           => mikevandiepen\utility\Sanitize\Filters\SanitizeSQL::class,
-    'xss'           => mikevandiepen\utility\Sanitize\Filters\SanitizeXSS::class,
-    'email'         => mikevandiepen\utility\Sanitize\Filters\SanitizeEmail::class,
-    'float'         => mikevandiepen\utility\Sanitize\Filters\SanitizeFloat::class,
-    'numeric'       => mikevandiepen\utility\Sanitize\Filters\SanitizeNumeric::class,
-    'url'           => mikevandiepen\utility\Sanitize\Filters\SanitizeUrl::class,
-    'slugify'       => mikevandiepen\utility\Sanitize\Filters\Slugify::class,
-    'json_decode'   => mikevandiepen\utility\Sanitize\Filters\JsonDecode::class,
-    'json_encode'   => mikevandiepen\utility\Sanitize\Filters\JsonEncode::class,
-    'left_trim'     => mikevandiepen\utility\Sanitize\Filters\LeftTrim::class,
-    'right_trim'    => mikevandiepen\utility\Sanitize\Filters\RightTrim::class,
-    'trim_all'      => mikevandiepen\utility\Sanitize\Filters\Trim::class,
-    'lowercase'     => mikevandiepen\utility\Sanitize\Filters\LowerCase::class,
-    'uppercase'     => mikevandiepen\utility\Sanitize\Filters\UpperCase::class,
-    'strip_tags'    => mikevandiepen\utility\Sanitize\Filters\StripTags::class,
+    'slq'           => Mediadevs\FormAssist\Sanitize\Filters\SanitizeSQL::class,
+    'xss'           => Mediadevs\FormAssist\Sanitize\Filters\SanitizeXSS::class,
+    'email'         => Mediadevs\FormAssist\Sanitize\Filters\SanitizeEmail::class,
+    'float'         => Mediadevs\FormAssist\Sanitize\Filters\SanitizeFloat::class,
+    'numeric'       => Mediadevs\FormAssist\Sanitize\Filters\SanitizeNumeric::class,
+    'url'           => Mediadevs\FormAssist\Sanitize\Filters\SanitizeUrl::class,
+    'slugify'       => Mediadevs\FormAssist\Sanitize\Filters\Slugify::class,
+    'json_decode'   => Mediadevs\FormAssist\Sanitize\Filters\JsonDecode::class,
+    'json_encode'   => Mediadevs\FormAssist\Sanitize\Filters\JsonEncode::class,
+    'left_trim'     => Mediadevs\FormAssist\Sanitize\Filters\LeftTrim::class,
+    'right_trim'    => Mediadevs\FormAssist\Sanitize\Filters\RightTrim::class,
+    'trim_all'      => Mediadevs\FormAssist\Sanitize\Filters\Trim::class,
+    'lowercase'     => Mediadevs\FormAssist\Sanitize\Filters\LowerCase::class,
+    'uppercase'     => Mediadevs\FormAssist\Sanitize\Filters\UpperCase::class,
+    'strip_tags'    => Mediadevs\FormAssist\Sanitize\Filters\StripTags::class,
 
     //------------------------------------------------------------------------------------------------------------------
     //                           Please register your custom sanitization filters down bellow

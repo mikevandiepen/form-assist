@@ -1,9 +1,9 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\String;
+namespace Mediadevs\FormAssist\Validate\Rules\String;
 
-use mikevandiepen\utility\Validate\Rules\Rule;
-use mikevandiepen\utility\Validate\ValidationInterface;
+use Mediadevs\FormAssist\Validate\Rules\Rule;
+use Mediadevs\FormAssist\Validate\ValidationInterface;
 
 class IPv4Address extends Rule implements ValidationInterface
 {

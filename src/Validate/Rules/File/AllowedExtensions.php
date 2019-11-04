@@ -1,9 +1,9 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\File;
+namespace Mediadevs\FormAssist\Validate\Rules\File;
 
-use mikevandiepen\utility\Validate\Rules\Rule;
-use mikevandiepen\utility\Validate\ValidationInterface;
+use Mediadevs\FormAssist\Validate\Rules\Rule;
+use Mediadevs\FormAssist\Validate\ValidationInterface;
 
 class AllowedExtensions extends Rule implements ValidationInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\Email;
+namespace Mediadevs\FormAssist\Validate\Rules\Email;
 
-use mikevandiepen\utility\Validate\Rules\Rule;
-use mikevandiepen\utility\Validate\ValidationInterface;
-use mikevandiepen\utility\Validate\Traits\DomainTraits;
+use Mediadevs\FormAssist\Validate\Rules\Rule;
+use Mediadevs\FormAssist\Validate\ValidationInterface;
+use Mediadevs\FormAssist\Validate\Traits\DomainTraits;
 
 class BlockedProviders extends Rule implements ValidationInterface
 {

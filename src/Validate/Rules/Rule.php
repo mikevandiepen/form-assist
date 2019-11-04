@@ -1,6 +1,6 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules;
+namespace Mediadevs\FormAssist\Validate\Rules;
 
 class Rule
 {

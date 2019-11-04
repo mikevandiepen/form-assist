@@ -1,9 +1,9 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\Types;
+namespace Mediadevs\FormAssist\Validate\Rules\Types;
 
-use mikevandiepen\utility\Validate\Rules\Rule;
-use mikevandiepen\utility\Validate\ValidationInterface;
+use Mediadevs\FormAssist\Validate\Rules\Rule;
+use Mediadevs\FormAssist\Validate\ValidationInterface;
 
 class TypeNumeric extends Rule implements ValidationInterface
 {

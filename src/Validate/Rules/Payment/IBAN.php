@@ -1,9 +1,9 @@
 <?php
 
-namespace mikevandiepen\utility\Validate\Rules\Payment;
+namespace Mediadevs\FormAssist\Validate\Rules\Payment;
 
-use mikevandiepen\utility\Validate\Rules\Rule;
-use mikevandiepen\utility\Validate\ValidationInterface;
+use Mediadevs\FormAssist\Validate\Rules\Rule;
+use Mediadevs\FormAssist\Validate\ValidationInterface;
 
 class IBAN extends Rule implements ValidationInterface
 {
