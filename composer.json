@@ -1,16 +1,16 @@
 {
   "name": "mediadevs/form-assist",
-  "description": "A framework for validation and sanitizing form data.",
+  "description": "An lightweigth framework for validation and sanitizing form data.",
   "license": "MIT",
   "authors": [
     {
       "name": "Mike van Diepen",
-      "email": "mike.vandiepen@hotmail.com",
+      "email": "contact@mediadevs.nl",
       "homepage": "https://mediadevs.nl/",
       "role": "Developer"
     }
   ],
-  "version": "0.9.0",
+  "version": "0.9.1",
   "autoload": {
     "psr-4": {
         "Mediadevs\\FormAssist\\": "src/"
