@@ -21,6 +21,7 @@
     "ext-json": "*",
     "ext-mysqli": "*",
     "ext-fileinfo": "*",
+    "phpunit/phpunit": "7",
     "mikevandiepen/response": "1.2.2"
   },
     "require-dev": {
